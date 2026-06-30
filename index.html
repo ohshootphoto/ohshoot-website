@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>oh SHOOT — The photo moment every event deserves</title>
+<meta name="description" content="oh SHOOT — cabine de fotos vintage para casamentos, ativações de marca e eventos em Portugal. Impressões na hora, galeria digital, tira personalizada. Reserve a sua data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ── oh SHOOT brand typeface: Denton Condensed ── */
+  @font-face{font-family:'Denton';src:url('denton-black.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}
+  @font-face{font-family:'Denton';src:url('denton-extrabold.woff2') format('woff2');font-weight:800;font-style:normal;font-display:swap}
+  @font-face{font-family:'Denton';src:url('denton-medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+  @font-face{font-family:'Denton';src:url('denton-italic.woff2') format('woff2');font-weight:400;font-style:italic;font-display:swap}
+  :root{
+    /* oh SHOOT EVENTS — editorial monochrome (from brand deck) */
+    --black:#100e0c;
+    --ink:#1a1714;
+    --paper:#f3f1ee;
+    --paper-2:#eae7e2;
+    --silver-1:#dad9db;
+    --silver-2:#f4f3f2;
+    --silver-3:#cccdd1;
+    --mid:#8a847c;
+    --line:#d8d4cc;
+    --white:#ffffff;
+    --display:'Denton', 'Playfair Display', Georgia, serif;
+    --body:'DM Sans', system-ui, sans-serif;
+    --mono:'IBM Plex Mono', monospace;
+    --maxw:1200px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .label{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--mid)}
+
+  /* ── Wordmark ── */
+  .wordmark{display:inline-flex;align-items:baseline;line-height:1;white-space:nowrap}
+  .wordmark .oh{font-family:var(--display);font-style:italic;font-weight:500;}
+  .wordmark .shoot{font-family:var(--display);font-weight:900;letter-spacing:.005em;margin-left:.12em}
+
+  /* ── Header ── */
+  header{position:sticky;top:0;z-index:100;background:rgba(243,241,238,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .nav .wordmark{font-size:27px}
+  .nav-links{display:flex;gap:32px;align-items:center}
+  .nav-links a{font-size:13.5px;font-weight:500;letter-spacing:.01em;position:relative}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:1.5px;background:var(--ink);transition:width .25s}
+  .nav-links a:hover::after{width:100%}
+  .nav-right{display:flex;align-items:center;gap:18px}
+  .lang{display:flex;border:1px solid var(--ink);border-radius:40px;overflow:hidden;font-family:var(--mono);font-size:11px}
+  .lang button{background:none;border:none;padding:6px 12px;cursor:pointer;color:var(--ink);font-family:inherit;font-size:inherit;letter-spacing:.08em}
+  .lang button.active{background:var(--ink);color:var(--paper)}
+  .btn{display:inline-block;background:var(--ink);color:var(--paper);padding:12px 24px;border-radius:40px;font-weight:600;font-size:13.5px;border:none;cursor:pointer;transition:transform .2s,background .2s,color .2s;white-space:nowrap;letter-spacing:.01em}
+  .btn:hover{transform:translateY(-2px);background:#000}
+  .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:var(--paper)}
+  .btn-light{background:var(--paper);color:var(--ink)}
+  .btn-light:hover{background:var(--white)}
+  .burger{display:none;background:none;border:none;font-size:24px;cursor:pointer}
+
+  /* ── Hero ── */
+  .hero{position:relative;background:linear-gradient(125deg,var(--silver-3) 0%,var(--silver-2) 42%,var(--silver-1) 100%);overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 60% 18%,rgba(255,255,255,.85) 0%,transparent 55%);pointer-events:none}
+  .hero-inner{position:relative;padding:96px 0 86px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  .hero .eyebrow{margin-bottom:26px}
+  .hero h1{font-family:var(--display);font-weight:800;font-size:clamp(40px,5.6vw,74px);line-height:1.03;letter-spacing:-.01em;margin-bottom:24px;color:var(--black)}
+  .hero h1 em{font-style:italic;font-weight:500}
+  .hero p.lead{font-size:19px;color:#4a443d;max-width:44ch;margin-bottom:34px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .hero-tagline{margin-top:40px;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);display:flex;gap:18px;flex-wrap:wrap}
+  .hero-tagline span{display:flex;align-items:center;gap:18px}
+  .hero-tagline span::after{content:"·";opacity:.5}
+  .hero-tagline span:last-child::after{content:""}
+
+  /* hero booth photo */
+  .hero-photo{display:flex;justify-content:center}
+  .hero-photo img{width:100%;max-width:420px;height:auto;filter:drop-shadow(0 40px 55px rgba(0,0,0,.42))}
+  /* photo strip motif */
+  .stripwrap{display:flex;justify-content:center}
+  .pstrip{background:var(--white);padding:12px 12px 34px;box-shadow:0 30px 60px -28px rgba(0,0,0,.5);width:230px;transform:rotate(2deg)}
+  .pstrip .fr{aspect-ratio:1/1;background:#e6e2da;margin-bottom:8px;overflow:hidden;position:relative;filter:grayscale(1) contrast(1.04)}
+  .pstrip .fr:nth-child(odd){background:#ddd8d0}
+  .pstrip .fr:last-of-type{margin-bottom:0}
+  .pstrip .ph{display:flex;align-items:center;justify-content:center;height:100%;font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:#a39c92}
+  .pstrip .sig{text-align:center;padding-top:14px}
+  .pstrip .sig .wordmark{font-size:15px}
+  .pstrip .sig small{display:block;font-family:var(--mono);font-size:7px;letter-spacing:.2em;color:var(--mid);margin-top:3px}
+
+  /* ── Intro band ── */
+  .intro{background:var(--paper);padding:84px 0}
+  .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .intro h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,3.6vw,42px);line-height:1.1;letter-spacing:-.01em;margin-bottom:18px}
+  .intro p{font-size:17px;color:#4a443d;max-width:46ch}
+  .nofilter{margin-top:26px;display:flex;gap:26px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);flex-wrap:wrap}
+  .feat{list-style:none;display:grid;gap:2px;border:1px solid var(--line)}
+  .feat li{padding:22px 24px;background:var(--white);display:flex;gap:14px;align-items:baseline}
+  .feat li .n{font-family:var(--mono);font-size:11px;color:var(--mid);min-width:22px}
+  .feat li strong{font-weight:600;font-size:16px}
+  .feat li span{display:block;color:var(--mid);font-size:14px;margin-top:2px}
+
+  /* ── Moment (dark) ── */
+  .moment{background:var(--black);color:var(--paper);padding:110px 0;text-align:center}
+  .moment .seq{font-family:var(--display);font-weight:800;font-size:clamp(34px,5vw,62px);line-height:1.12;letter-spacing:-.01em}
+  .moment .seq em{font-style:italic;font-weight:500;color:#cfc8bd}
+  .moment .big{margin:42px 0;font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase;font-size:13px;color:#8d867b}
+  .moment .big b{color:var(--paper)}
+
+  /* ── Section base ── */
+  section{padding:90px 0}
+  .sec-head{max-width:640px;margin-bottom:52px}
+  .sec-head .eyebrow{margin-bottom:16px}
+  .sec-head h2{font-family:var(--display);font-weight:700;font-size:clamp(30px,4.4vw,52px);line-height:1.04;letter-spacing:-.01em;margin-bottom:14px}
+  .sec-head p{font-size:17px;color:var(--mid)}
+
+  /* ── Built for ── */
+  #builtfor{background:var(--paper-2)}
+  .grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--line);background:var(--line)}
+  .gcell{background:var(--white);padding:40px 32px;min-height:200px;display:flex;flex-direction:column;transition:background .25s}
+  .gcell:hover{background:var(--paper)}
+  .gcell .num{font-family:var(--mono);font-size:11px;color:var(--mid);letter-spacing:.1em}
+  .gcell h3{font-family:var(--display);font-weight:700;font-size:25px;margin:auto 0 10px;letter-spacing:-.01em}
+  .gcell p{font-size:14.5px;color:var(--mid)}
+
+  /* ── Booking includes ── */
+  .includes{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .inc{text-align:left}
+  .inc .ic{font-family:var(--display);font-weight:800;font-size:30px;color:var(--ink);margin-bottom:14px}
+  .inc strong{display:block;font-size:15.5px;font-weight:600;margin-bottom:4px}
+  .inc span{font-size:13.5px;color:var(--mid)}
+
+  /* ── Experience (more than a booth) ── */
+  #experience{background:var(--black);color:var(--paper)}
+  #experience .sec-head h2{color:var(--paper)}
+  #experience .sec-head p,#experience .eyebrow{color:#9a9388}
+  .compare{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:stretch}
+  .comp{border-radius:6px;padding:42px 38px}
+  .comp.ours{background:var(--paper);color:var(--ink)}
+  .comp.theirs{background:#1b1815;border:1px solid #2c2823;color:#9a9388}
+  .comp .ctitle{font-family:var(--display);font-weight:700;font-size:27px;letter-spacing:-.01em;margin-bottom:6px}
+  .comp.ours .ctitle .wordmark .oh{font-style:italic}
+  .comp.theirs .ctitle{color:#cfc8bd}
+  .comp .csub{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:24px}
+  .comp ul{list-style:none}
+  .comp li{padding:16px 0;border-top:1px solid var(--line);font-size:16px;display:flex;gap:13px;align-items:flex-start;line-height:1.45}
+  .comp.theirs li{border-top-color:#2c2823}
+  .comp li .mk{font-family:var(--display);font-weight:800;flex-shrink:0;font-size:18px;line-height:1.3}
+  .comp.ours li .mk{color:var(--ink)}
+  .comp.theirs li .mk{color:#5a544c}
+
+  /* ── Why ── */
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
+  .why h3{font-family:var(--display);font-weight:700;font-size:34px;letter-spacing:-.01em;margin-bottom:12px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+  .why p{font-size:16px;color:var(--mid)}
+  .why p b{color:var(--ink);font-weight:600}
+
+  /* ── Testimonials ── */
+  #voices{background:var(--paper-2)}
+  .quotes{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  .q{background:var(--white);border:1px solid var(--line);padding:42px;display:flex;flex-direction:column}
+  .q blockquote{font-family:var(--display);font-style:italic;font-weight:500;font-size:23px;line-height:1.4;letter-spacing:-.01em;margin-bottom:24px}
+  .q .who{margin-top:auto;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);line-height:1.8}
+  .q .who b{color:var(--ink);font-weight:500}
+
+  /* ── Booking ── */
+  #booking{background:var(--black);color:var(--paper)}
+  #booking .sec-head h2{color:var(--paper)}
+  #booking .sec-head p,#booking .eyebrow{color:#9a9388}
+  .book-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:54px;align-items:start}
+  .book-list{list-style:none}
+  .book-list li{padding:18px 0;border-bottom:1px solid #2a2622;display:flex;gap:14px;align-items:flex-start}
+  .book-list .ic{font-family:var(--display);color:var(--paper);font-size:18px;line-height:1.3}
+  .book-list strong{display:block;font-size:16px}
+  .book-list span{color:#9a9388;font-size:14px}
+  form{background:var(--paper);color:var(--ink);border-radius:8px;padding:34px}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);margin-bottom:7px}
+  .field input,.field select,.field textarea{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:6px;font-family:inherit;font-size:15px;background:var(--white);color:var(--ink)}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--ink);border-color:transparent}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  form .btn{width:100%;margin-top:6px}
+  .form-note{font-size:11px;font-family:var(--mono);color:var(--mid);margin-top:12px;text-align:center}
+  .form-success{display:none;background:#eef0e9;border:1px solid #cdd3bf;color:#43512d;padding:16px;border-radius:6px;font-size:15px;margin-bottom:16px}
+
+  /* ── Gallery ── */
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .gallery .g{aspect-ratio:3/4;overflow:hidden;background:#e6e2da;position:relative}
+  .gallery .g img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.55) contrast(1.02);transition:filter .4s,transform .5s}
+  .gallery .g:hover img{filter:grayscale(0);transform:scale(1.04)}
+
+  /* ── Footer ── */
+  footer{background:var(--black);color:var(--paper);padding:72px 0 34px}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:44px;margin-bottom:46px}
+  footer .wordmark{font-size:34px;color:var(--paper);margin-bottom:16px}
+  footer .ftag{color:#9a9388;font-size:14px;max-width:32ch}
+  .foot-col h5{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:16px;color:#9a9388}
+  .foot-col a{display:block;color:var(--paper);font-size:14.5px;padding:5px 0;opacity:.85}
+  .foot-col a:hover{opacity:1}
+  .foot-bottom{border-top:1px solid #2a2622;padding-top:26px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:#7a746c;flex-wrap:wrap;gap:8px}
+  .flag{color:#c98a3a;font-family:var(--mono)}
+
+  /* ── Responsive ── */
+  @media(max-width:920px){
+    .hero-inner{grid-template-columns:1fr;gap:46px}
+    .intro-grid{grid-template-columns:1fr;gap:36px}
+    .grid6{grid-template-columns:1fr 1fr}
+    .includes{grid-template-columns:1fr 1fr}
+    .compare{grid-template-columns:1fr}
+    .why-grid{grid-template-columns:1fr;gap:30px}
+    .quotes{grid-template-columns:1fr}
+    .book-grid{grid-template-columns:1fr;gap:36px}
+    .gallery{grid-template-columns:1fr 1fr}
+    .foot-grid{grid-template-columns:1fr}
+    .nav-links{display:none}
+    .burger{display:block}
+    .nav-links.open{display:flex;position:absolute;top:74px;left:0;right:0;background:var(--paper);flex-direction:column;padding:22px 28px;gap:20px;border-bottom:1px solid var(--line)}
+  }
+  @media(max-width:560px){
+    .grid6{grid-template-columns:1fr}
+    .includes{grid-template-columns:1fr 1fr}
+    .field-row{grid-template-columns:1fr}
+    .hero-tagline{font-size:11px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="wordmark"><span class="oh">oh</span><span class="shoot">SHOOT</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#builtfor" data-pt="Criado para" data-en="Built for">Criado para</a>
+      <a href="#why" data-pt="Porquê" data-en="Why">Porquê</a>
+      <a href="#gallery" data-pt="Galeria" data-en="Gallery">Galeria</a>
+      <a href="#booking" data-pt="Reservar" data-en="Book">Reservar</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang">
+        <button data-lang="pt" class="active">PT</button>
+        <button data-lang="en">EN</button>
+      </div>
+      <a href="#booking" class="btn" data-pt="Reservar data" data-en="Book a date">Reservar data</a>
+      <button class="burger" id="burger" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="label eyebrow" data-pt="Eventos · Portugal" data-en="Events · Portugal">Eventos · Portugal</div>
+      <h1 data-pt="O momento fotográfico que <em>todos os eventos</em> merecem." data-en="The photo moment <em>every event</em> deserves.">O momento fotográfico que <em>todos os eventos</em> merecem.</h1>
+      <p class="lead" data-pt="Uma cabine de fotos vintage para momentos modernos. Sem filtros, sem repetições — só momentos reais, impressos em 60 segundos para levar para casa." data-en="A vintage-inspired photo booth for modern moments. No filters, no retakes — just real moments, printed in 60 seconds to take home.">Uma cabine de fotos vintage para momentos modernos. Sem filtros, sem repetições — só momentos reais, impressos em 60 segundos para levar para casa.</p>
+      <div class="hero-cta">
+        <a href="#booking" class="btn" data-pt="Ver disponibilidade" data-en="Check availability">Ver disponibilidade</a>
+        <a href="#gallery" class="btn btn-ghost" data-pt="Ver galeria" data-en="See gallery">Ver galeria</a>
+      </div>
+      <div class="hero-tagline">
+        <span data-pt="4 fotos" data-en="4 shots">4 fotos</span>
+        <span data-pt="60 segundos" data-en="60 seconds">60 segundos</span>
+        <span data-pt="vale a pena" data-en="worth it">vale a pena</span>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="booth.png" alt="Cabine fotográfica oh SHOOT" loading="eager">
+    </div>
+  </div>
+</section>
+
+<!-- ============ INTRO ============ -->
+<section class="intro">
+  <div class="wrap intro-grid">
+    <div>
+      <div class="label eyebrow" style="margin-bottom:16px" data-pt="Uma abordagem moderna à criação de memórias" data-en="A modern take on memory-making">Uma abordagem moderna à criação de memórias</div>
+      <h2 data-pt="Trazemos de volta a sensação de momentos genuínos, espontâneos e imperfeitos." data-en="We bring back the feeling of candid, imperfect, real moments.">Trazemos de volta a sensação de momentos genuínos, espontâneos e imperfeitos.</h2>
+      <p data-pt="Uma cabine de fotos pensada ao detalhe para elevar qualquer espaço — e dar aos seus convidados algo real para levar." data-en="A photo booth designed down to the detail to elevate any space — and give your guests something real to take home.">Uma cabine de fotos pensada ao detalhe para elevar qualquer espaço — e dar aos seus convidados algo real para levar.</p>
+      <div class="nofilter">
+        <span data-pt="Sem filtros" data-en="No filters">Sem filtros</span>
+        <span data-pt="Sem repetições" data-en="No retakes">Sem repetições</span>
+        <span data-pt="Só momentos" data-en="Just moments">Só momentos</span>
+      </div>
+    </div>
+    <ul class="feat">
+      <li><span class="n">01</span><div><strong data-pt="Impressões instantâneas" data-en="Instant prints">Impressões instantâneas</strong><span data-pt="Tiras físicas em 60 segundos." data-en="Physical strips in 60 seconds.">Tiras físicas em 60 segundos.</span></div></li>
+      <li><span class="n">02</span><div><strong data-pt="Galeria digital" data-en="Digital gallery">Galeria digital</strong><span data-pt="Todas as fotos, partilháveis ao instante." data-en="Every photo, instantly shareable.">Todas as fotos, partilháveis ao instante.</span></div></li>
+      <li><span class="n">03</span><div><strong data-pt="Tira personalizada com branding" data-en="Custom branded strip">Tira personalizada com branding</strong><span data-pt="Cada frame com a identidade do seu evento." data-en="Every frame with your event's identity.">Cada frame com a identidade do seu evento.</span></div></li>
+      <li><span class="n">04</span><div><strong data-pt="Pensada para valorizar o espaço" data-en="Designed to elevate any space">Pensada para valorizar o espaço</strong><span data-pt="Um objeto bonito, não só uma máquina." data-en="A beautiful object, not just a machine.">Um objeto bonito, não só uma máquina.</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ MOMENT ============ -->
+<section class="moment">
+  <div class="wrap">
+    <div class="seq" data-pt="Entre.<br><em>Feche a cortina.</em><br>Seja você." data-en="Step in.<br><em>Close the curtain.</em><br>Be yourself.">Entre.<br><em>Feche a cortina.</em><br>Seja você.</div>
+    <div class="big" data-pt="4 fotos · 60 segundos · <b>vale a pena</b>" data-en="4 shots · 60 seconds · <b>worth it</b>">4 fotos · 60 segundos · <b>vale a pena</b></div>
+    <div class="seq" data-pt="Saia com <em>algo real.</em>" data-en="Walk out with <em>something real.</em>">Saia com <em>algo real.</em></div>
+  </div>
+</section>
+
+<!-- ============ BUILT FOR ============ -->
+<section id="builtfor">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="label eyebrow" data-pt="Para quem" data-en="Built for">Para quem</div>
+      <h2 data-pt="Construído para todos os momentos" data-en="Built for every moment">Construído para todos os momentos</h2>
+    </div>
+    <div class="grid6">
+      <div class="gcell"><span class="num">01</span><h3 data-pt="Casamentos" data-en="Weddings">Casamentos</h3><p data-pt="De cerimónias íntimas a grandes festas." data-en="From intimate ceremonies to grand receptions.">De cerimónias íntimas a grandes festas.</p></div>
+      <div class="gcell"><span class="num">02</span><h3 data-pt="Ativações de marca" data-en="Brand activations">Ativações de marca</h3><p data-pt="Transforme a sua campanha numa impressão física." data-en="Turn your campaign into a physical print.">Transforme a sua campanha numa impressão física.</p></div>
+      <div class="gcell"><span class="num">03</span><h3 data-pt="Festivais" data-en="Festivals">Festivais</h3><p data-pt="A cabine que os convidados realmente recordam." data-en="The one booth guests actually remember.">A cabine que os convidados realmente recordam.</p></div>
+      <div class="gcell"><span class="num">04</span><h3 data-pt="Aniversários" data-en="Birthdays">Aniversários</h3><p data-pt="Porque todos merecem uma tira de fotos na festa." data-en="Because everyone deserves a photo strip at a party.">Porque todos merecem uma tira de fotos na festa.</p></div>
+      <div class="gcell"><span class="num">05</span><h3 data-pt="Eventos corporativos" data-en="Corporate events">Eventos corporativos</h3><p data-pt="Ativações de marca e momentos de equipa que ficam." data-en="Brand activations and team moments that last.">Ativações de marca e momentos de equipa que ficam.</p></div>
+      <div class="gcell"><span class="num">06</span><h3 data-pt="Festas privadas" data-en="Private parties">Festas privadas</h3><p data-pt="Nenhuma ocasião é pequena para um momento real." data-en="No occasion too small for a real moment.">Nenhuma ocasião é pequena para um momento real.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY ============ -->
+<section id="why">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="label eyebrow" data-pt="Porquê oh SHOOT" data-en="Why oh SHOOT">Porquê oh SHOOT</div>
+      <h2 data-pt="Três razões simples" data-en="Three simple reasons">Três razões simples</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why"><h3 data-pt="Instantâneo" data-en="Instant">Instantâneo</h3><p data-pt="Impressões em 60 segundos. <b>Sem app, sem espera.</b> Só papel." data-en="Prints in 60 seconds. <b>No app, no waiting.</b> Just paper.">Impressões em 60 segundos. <b>Sem app, sem espera.</b> Só papel.</p></div>
+      <div class="why"><h3 data-pt="Analógico" data-en="Analog">Analógico</h3><p data-pt="Impressões físicas. <b>Daquelas que acabam no frigorífico.</b>" data-en="Physical prints. <b>The kind that end up on fridges.</b>">Impressões físicas. <b>Daquelas que acabam no frigorífico.</b></p></div>
+      <div class="why"><h3 data-pt="Seu" data-en="Yours">Seu</h3><p data-pt="Design de tira personalizado. <b>Cada frame com o nome do seu evento.</b>" data-en="Custom strip design. <b>Every frame with your event's name.</b>">Design de tira personalizado. <b>Cada frame com o nome do seu evento.</b></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section id="voices">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="label eyebrow" data-pt="O que dizem" data-en="What they said">O que dizem</div>
+      <h2 data-pt="Momentos reais, pessoas reais" data-en="Real moments, real people">Momentos reais, pessoas reais</h2>
+    </div>
+    <div class="quotes">
+      <div class="q">
+        <blockquote data-pt="&ldquo;A cabine de fotos foi o detalhe mais comentado do nosso casamento. Os convidados ainda têm as tiras no frigorífico.&rdquo;" data-en="&ldquo;The photo booth was the most-talked-about detail of our wedding. Guests still have the strips on their fridges.&rdquo;">&ldquo;A cabine de fotos foi o detalhe mais comentado do nosso casamento. Os convidados ainda têm as tiras no frigorífico.&rdquo;</blockquote>
+        <div class="who"><b>Mariana &amp; Rui</b><br><span data-pt="Casados em outubro de 2024 · Quinta da Tapada, Sintra" data-en="Married October 2024 · Quinta da Tapada, Sintra">Casados em outubro de 2024 · Quinta da Tapada, Sintra</span></div>
+      </div>
+      <div class="q">
+        <blockquote data-pt="&ldquo;Reservámos a oh SHOOT para o nosso lançamento de produto. Quatrocentas impressões. Zero reclamações. Exatamente o que precisávamos.&rdquo;" data-en="&ldquo;We booked oh SHOOT for our product launch. Four hundred prints. Zero complaints. Exactly what we needed.&rdquo;">&ldquo;Reservámos a oh SHOOT para o nosso lançamento de produto. Quatrocentas impressões. Zero reclamações. Exatamente o que precisávamos.&rdquo;</blockquote>
+        <div class="who"><b data-pt="Gestora de Eventos" data-en="Events Manager">Gestora de Eventos</b><br><span>Startup Lisboa Conference 2024</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="label eyebrow" data-pt="Galeria" data-en="Gallery">Galeria</div>
+      <h2 data-pt="Veja em ação" data-en="See it in action">Veja em ação</h2>
+      <p data-pt="A cabine em eventos reais — e as tiras que ficam na memória." data-en="The booth at real events — and the strips people keep.">A cabine em eventos reais — e as tiras que ficam na memória.</p>
+    </div>
+    <div class="gallery">
+      <div class="g"><img src="venue.jpg" alt="Cabine oh SHOOT num evento interior" loading="lazy"></div>
+      <div class="g"><img src="strip.jpg" alt="Tiras de fotos em preto e branco da oh SHOOT" loading="lazy"></div>
+      <div class="g"><img src="garden.jpg" alt="Cabine oh SHOOT num evento ao ar livre" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOKING ============ -->
+<section id="booking">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="label eyebrow" data-pt="Vamos a isto" data-en="Let's do it">Vamos a isto</div>
+      <h2 data-pt="O seu evento merece" data-en="Your event deserves it">O seu evento merece</h2>
+      <p data-pt="Diga-nos a data e o local. Respondemos em 24 horas com disponibilidade e orçamento." data-en="Tell us the date and place. We reply within 24 hours with availability and a quote.">Diga-nos a data e o local. Respondemos em 24 horas com disponibilidade e orçamento.</p>
+    </div>
+    <div class="book-grid">
+      <ul class="book-list">
+        <li><span class="ic">→</span><span><strong data-pt="Resposta em 24h" data-en="24h response">Resposta em 24h</strong><span data-pt="Confirmação de disponibilidade num dia útil." data-en="Availability confirmed within a business day.">Confirmação de disponibilidade num dia útil.</span></span></li>
+        <li><span class="ic">→</span><span><strong data-pt="Depósito de 50%" data-en="50% deposit">Depósito de 50%</strong><span data-pt="Confirma e garante a sua data." data-en="Confirms and secures your date.">Confirma e garante a sua data.</span></span></li>
+        <li><span class="ic">→</span><span><strong data-pt="Grande Lisboa" data-en="Greater Lisbon">Grande Lisboa</strong><span data-pt="Outras zonas mediante orçamento." data-en="Other locations on request.">Outras zonas mediante orçamento.</span></span></li>
+        <li><span class="ic">→</span><span><strong data-pt="Fale connosco" data-en="Talk to us">Fale connosco</strong><span>events@ohshoot.pt · <a href="https://wa.me/351918453745" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">WhatsApp +351 918 453 745</a></span></span></li>
+      </ul>
+      <form id="bookForm">
+        <div class="form-success" id="formSuccess" data-pt="Obrigado! Recebemos o seu pedido e respondemos em 24h. 📸" data-en="Thank you! We've received your request and will reply within 24h. 📸">Obrigado! Recebemos o seu pedido e respondemos em 24h. 📸</div>
+        <div class="field">
+          <label data-pt="Nome" data-en="Name">Nome</label>
+          <input type="text" name="name" required>
+        </div>
+        <div class="field-row">
+          <div class="field"><label data-pt="Email" data-en="Email">Email</label><input type="email" name="email" required></div>
+          <div class="field"><label data-pt="Telefone" data-en="Phone">Telefone</label><input type="tel" name="phone"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label data-pt="Data do evento" data-en="Event date">Data do evento</label><input type="date" name="date" required></div>
+          <div class="field">
+            <label data-pt="Duração" data-en="Duration">Duração</label>
+            <select name="package">
+              <option data-pt="Meio dia (até 5h)" data-en="Half day (up to 5h)">Meio dia (até 5h)</option>
+              <option data-pt="Dia inteiro (até 8h)" data-en="Full day (up to 8h)">Dia inteiro (até 8h)</option>
+              <option data-pt="Premium (até 12h)" data-en="Premium (up to 12h)">Premium (até 12h)</option>
+              <option data-pt="Ainda não sei" data-en="Not sure yet">Ainda não sei</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label data-pt="Tipo de evento" data-en="Event type">Tipo de evento</label>
+            <select name="type">
+              <option data-pt="Casamento" data-en="Wedding">Casamento</option>
+              <option data-pt="Ativação de marca" data-en="Brand activation">Ativação de marca</option>
+              <option data-pt="Festival" data-en="Festival">Festival</option>
+              <option data-pt="Aniversário" data-en="Birthday">Aniversário</option>
+              <option data-pt="Evento corporativo" data-en="Corporate event">Evento corporativo</option>
+              <option data-pt="Festa privada" data-en="Private party">Festa privada</option>
+              <option data-pt="Outro" data-en="Other">Outro</option>
+            </select>
+          </div>
+          <div class="field"><label data-pt="Local / cidade" data-en="Location / city">Local / cidade</label><input type="text" name="location"></div>
+        </div>
+        <div class="field">
+          <label data-pt="Mensagem (opcional)" data-en="Message (optional)">Mensagem (opcional)</label>
+          <textarea name="message" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn" data-pt="Pedir disponibilidade" data-en="Request availability">Pedir disponibilidade</button>
+        <p class="form-note flag">[Demo: o formulário ainda não envia. Ligar a email/CRM/Calendar.]</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="wordmark"><span class="oh">oh</span><span class="shoot">SHOOT</span></div>
+        <p class="ftag" data-pt="O momento fotográfico que todos os eventos merecem. Grande Lisboa · Portugal." data-en="The photo moment every event deserves. Greater Lisbon · Portugal.">O momento fotográfico que todos os eventos merecem. Grande Lisboa · Portugal.</p>
+      </div>
+      <div class="foot-col">
+        <h5 data-pt="Navegar" data-en="Explore">Navegar</h5>
+        <a href="#builtfor" data-pt="Criado para" data-en="Built for">Criado para</a>
+        <a href="#why" data-pt="Porquê" data-en="Why">Porquê</a>
+        <a href="#gallery" data-pt="Galeria" data-en="Gallery">Galeria</a>
+        <a href="#booking" data-pt="Reservar" data-en="Book">Reservar</a>
+      </div>
+      <div class="foot-col">
+        <h5 data-pt="Contacto" data-en="Contact">Contacto</h5>
+        <a href="mailto:events@ohshoot.pt">events@ohshoot.pt</a>
+        <a href="https://wa.me/351918453745" target="_blank" rel="noopener">WhatsApp +351 918 453 745</a>
+        <a href="https://instagram.com/ohshoot.photo" target="_blank" rel="noopener">@ohshoot.photo</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 oh SHOOT — OHSHOOT.PT</span>
+      <span data-pt="FEITO EM PORTUGAL" data-en="MADE IN PORTUGAL">FEITO EM PORTUGAL</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---- Language toggle ----
+  const langButtons=document.querySelectorAll('.lang button');
+  function setLang(lang){
+    document.documentElement.lang=lang;
+    document.querySelectorAll('[data-pt]').forEach(el=>{
+      const val=el.getAttribute('data-'+lang);
+      if(val!==null) el.innerHTML=val;
+    });
+    langButtons.forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+  }
+  langButtons.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+
+  // ---- Mobile menu ----
+  const burger=document.getElementById('burger');
+  const navLinks=document.getElementById('navLinks');
+  burger.addEventListener('click',()=>navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+
+  // ---- Booking form (demo) ----
+  const form=document.getElementById('bookForm');
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    document.getElementById('formSuccess').style.display='block';
+    form.querySelector('.form-note').style.display='none';
+    document.getElementById('formSuccess').scrollIntoView({behavior:'smooth',block:'center'});
+    form.reset();
+  });
+
+  // ---- Min date = today ----
+  const dateInput=document.querySelector('input[name=date]');
+  if(dateInput) dateInput.min=new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
