@@ -5,17 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>oh SHOOT — The photo moment every event deserves</title>
 <meta name="description" content="oh SHOOT — cabine de fotos vintage para casamentos, ativações de marca e eventos em Portugal. Impressões na hora, galeria digital, tira personalizada. Reserve a sua data.">
+<meta property="og:title" content="oh SHOOT — The photo moment every event deserves">
+<meta property="og:description" content="Cabine de fotos vintage para momentos modernos. Sem filtros, sem repetições — só momentos reais, impressos em 60 segundos.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ohshoot.pt">
+<meta property="og:image" content="https://ohshootphoto.github.io/ohshoot-website/booth.png">
+<meta name="theme-color" content="#100e0c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23100e0c'/%3E%3Ccircle cx='32' cy='30' r='14' fill='none' stroke='%23f3f1ee' stroke-width='4'/%3E%3Ccircle cx='32' cy='30' r='5' fill='%23f3f1ee'/%3E%3Crect x='18' y='48' width='28' height='4' fill='%23f3f1ee'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "oh SHOOT",
+  "description": "Cabine de fotos vintage para casamentos, ativações de marca e eventos em Portugal.",
+  "url": "https://ohshoot.pt",
+  "email": "events@ohshoot.pt",
+  "telephone": "+351918453745",
+  "areaServed": "Grande Lisboa, Portugal",
+  "sameAs": ["https://instagram.com/ohshoot.photo"]
+}
+</script>
 <style>
   /* ── oh SHOOT brand typeface: Denton Condensed ── */
   @font-face{font-family:'Denton';src:url('denton-black.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}
   @font-face{font-family:'Denton';src:url('denton-extrabold.woff2') format('woff2');font-weight:800;font-style:normal;font-display:swap}
   @font-face{font-family:'Denton';src:url('denton-medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
   @font-face{font-family:'Denton';src:url('denton-italic.woff2') format('woff2');font-weight:400;font-style:italic;font-display:swap}
+
   :root{
-    /* oh SHOOT EVENTS — editorial monochrome (from brand deck) */
     --black:#100e0c;
     --ink:#1a1714;
     --paper:#f3f1ee;
@@ -25,28 +45,57 @@
     --silver-3:#cccdd1;
     --mid:#8a847c;
     --line:#d8d4cc;
+    --line-dk:#2a2622;
     --white:#ffffff;
-    --display:'Denton', 'Playfair Display', Georgia, serif;
-    --body:'DM Sans', system-ui, sans-serif;
-    --mono:'IBM Plex Mono', monospace;
+    --display:'Denton','Playfair Display',Georgia,serif;
+    --body:'DM Sans',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',monospace;
     --maxw:1200px;
+    --ease:cubic-bezier(.22,.8,.24,1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   img{max-width:100%;display:block}
   a{color:inherit;text-decoration:none}
+  ::selection{background:var(--ink);color:var(--paper)}
 
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
   .label{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--mid)}
 
+  .skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--paper);padding:10px 18px;z-index:9999}
+  .skip:focus{left:12px;top:12px}
+
+  /* ── Film grain ── */
+  body::after{content:"";position:fixed;inset:-100px;pointer-events:none;z-index:9998;opacity:.05;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  /* ── Preloader (camera flash) ── */
+  #loader{position:fixed;inset:0;z-index:10000;background:var(--black);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:22px;transition:opacity .45s ease,visibility .45s}
+  #loader.done{opacity:0;visibility:hidden}
+  #loader .wordmark{font-size:clamp(44px,8vw,84px);color:var(--paper)}
+  #loader .count{font-family:var(--mono);font-size:13px;letter-spacing:.4em;color:#8d867b}
+  #flash{position:fixed;inset:0;background:#fff;z-index:9999;opacity:0;pointer-events:none}
+  #flash.fire{animation:flash .5s ease-out}
+  @keyframes flash{0%{opacity:0}12%{opacity:1}100%{opacity:0}}
+
+  /* ── Scroll progress ── */
+  #progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--ink);z-index:200}
+
+  /* ── Reveal ── */
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+  .rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+  .rv.d4{transition-delay:.32s}.rv.d5{transition-delay:.4s}.rv.d6{transition-delay:.48s}
+
   /* ── Wordmark ── */
   .wordmark{display:inline-flex;align-items:baseline;line-height:1;white-space:nowrap}
-  .wordmark .oh{font-family:var(--display);font-style:italic;font-weight:500;}
+  .wordmark .oh{font-family:var(--display);font-style:italic;font-weight:500}
   .wordmark .shoot{font-family:var(--display);font-weight:900;letter-spacing:.005em;margin-left:.12em}
 
   /* ── Header ── */
-  header{position:sticky;top:0;z-index:100;background:rgba(243,241,238,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  header{position:sticky;top:0;z-index:100;background:rgba(243,241,238,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:transform .35s var(--ease)}
+  header.hide{transform:translateY(-100%)}
   .nav{display:flex;align-items:center;justify-content:space-between;height:74px}
   .nav .wordmark{font-size:27px}
   .nav-links{display:flex;gap:32px;align-items:center}
@@ -57,102 +106,113 @@
   .lang{display:flex;border:1px solid var(--ink);border-radius:40px;overflow:hidden;font-family:var(--mono);font-size:11px}
   .lang button{background:none;border:none;padding:6px 12px;cursor:pointer;color:var(--ink);font-family:inherit;font-size:inherit;letter-spacing:.08em}
   .lang button.active{background:var(--ink);color:var(--paper)}
-  .btn{display:inline-block;background:var(--ink);color:var(--paper);padding:12px 24px;border-radius:40px;font-weight:600;font-size:13.5px;border:none;cursor:pointer;transition:transform .2s,background .2s,color .2s;white-space:nowrap;letter-spacing:.01em}
-  .btn:hover{transform:translateY(-2px);background:#000}
+  .btn{display:inline-block;background:var(--ink);color:var(--paper);padding:13px 26px;border-radius:40px;font-weight:600;font-size:13.5px;border:none;cursor:pointer;transition:transform .2s,background .2s,color .2s,box-shadow .2s;white-space:nowrap;letter-spacing:.01em}
+  .btn:hover{transform:translateY(-2px);background:#000;box-shadow:0 12px 26px -12px rgba(0,0,0,.5)}
   .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
   .btn-ghost:hover{background:var(--ink);color:var(--paper)}
   .btn-light{background:var(--paper);color:var(--ink)}
   .btn-light:hover{background:var(--white)}
-  .burger{display:none;background:none;border:none;font-size:24px;cursor:pointer}
+  .burger{display:none;background:none;border:none;font-size:24px;cursor:pointer;color:var(--ink)}
 
   /* ── Hero ── */
   .hero{position:relative;background:linear-gradient(125deg,var(--silver-3) 0%,var(--silver-2) 42%,var(--silver-1) 100%);overflow:hidden}
   .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 60% 18%,rgba(255,255,255,.85) 0%,transparent 55%);pointer-events:none}
-  .hero-inner{position:relative;padding:96px 0 86px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
-  .hero .eyebrow{margin-bottom:26px}
-  .hero h1{font-family:var(--display);font-weight:800;font-size:clamp(40px,5.6vw,74px);line-height:1.03;letter-spacing:-.01em;margin-bottom:24px;color:var(--black)}
+  .hero-bg{position:absolute;top:-4%;right:-6%;font-family:var(--display);font-weight:900;font-size:34vw;line-height:.9;color:rgba(16,14,12,.028);pointer-events:none;user-select:none;letter-spacing:-.02em}
+  .hero-inner{position:relative;padding:100px 0 90px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  .hero .eyebrow{margin-bottom:26px;display:flex;align-items:center;gap:12px}
+  .hero .eyebrow::before{content:"";width:34px;height:1px;background:var(--mid)}
+  .hero h1{font-family:var(--display);font-weight:800;font-size:clamp(42px,6vw,80px);line-height:1.02;letter-spacing:-.01em;margin-bottom:24px;color:var(--black)}
   .hero h1 em{font-style:italic;font-weight:500}
   .hero p.lead{font-size:19px;color:#4a443d;max-width:44ch;margin-bottom:34px}
   .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-  .hero-tagline{margin-top:40px;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);display:flex;gap:18px;flex-wrap:wrap}
+  .hero-tagline{margin-top:42px;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);display:flex;gap:18px;flex-wrap:wrap}
   .hero-tagline span{display:flex;align-items:center;gap:18px}
   .hero-tagline span::after{content:"·";opacity:.5}
   .hero-tagline span:last-child::after{content:""}
+  .hero-photo{display:flex;justify-content:center;perspective:900px}
+  .hero-photo img{width:100%;max-width:430px;height:auto;filter:drop-shadow(0 40px 55px rgba(0,0,0,.42));transition:transform .3s ease-out;will-change:transform}
 
-  /* hero booth photo */
-  .hero-photo{display:flex;justify-content:center}
-  .hero-photo img{width:100%;max-width:420px;height:auto;filter:drop-shadow(0 40px 55px rgba(0,0,0,.42))}
-  /* photo strip motif */
-  .stripwrap{display:flex;justify-content:center}
-  .pstrip{background:var(--white);padding:12px 12px 34px;box-shadow:0 30px 60px -28px rgba(0,0,0,.5);width:230px;transform:rotate(2deg)}
-  .pstrip .fr{aspect-ratio:1/1;background:#e6e2da;margin-bottom:8px;overflow:hidden;position:relative;filter:grayscale(1) contrast(1.04)}
-  .pstrip .fr:nth-child(odd){background:#ddd8d0}
-  .pstrip .fr:last-of-type{margin-bottom:0}
-  .pstrip .ph{display:flex;align-items:center;justify-content:center;height:100%;font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:#a39c92}
-  .pstrip .sig{text-align:center;padding-top:14px}
-  .pstrip .sig .wordmark{font-size:15px}
-  .pstrip .sig small{display:block;font-family:var(--mono);font-size:7px;letter-spacing:.2em;color:var(--mid);margin-top:3px}
+  /* ── Marquee ── */
+  .marquee{background:var(--black);color:var(--paper);overflow:hidden;padding:16px 0;border-top:1px solid var(--black)}
+  .marquee-track{display:flex;gap:0;width:max-content;animation:mq 26s linear infinite}
+  .marquee span{font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;padding-right:34px}
+  .marquee span i{font-style:italic;font-weight:500;color:#9a9388}
+  @keyframes mq{to{transform:translateX(-50%)}}
+  .marquee:hover .marquee-track{animation-play-state:paused}
 
   /* ── Intro band ── */
-  .intro{background:var(--paper);padding:84px 0}
+  .intro{background:var(--paper);padding:96px 0}
   .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
   .intro h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,3.6vw,42px);line-height:1.1;letter-spacing:-.01em;margin-bottom:18px}
   .intro p{font-size:17px;color:#4a443d;max-width:46ch}
   .nofilter{margin-top:26px;display:flex;gap:26px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);flex-wrap:wrap}
   .feat{list-style:none;display:grid;gap:2px;border:1px solid var(--line)}
-  .feat li{padding:22px 24px;background:var(--white);display:flex;gap:14px;align-items:baseline}
+  .feat li{padding:22px 24px;background:var(--white);display:flex;gap:14px;align-items:baseline;transition:background .25s,transform .25s}
+  .feat li:hover{background:var(--paper-2)}
   .feat li .n{font-family:var(--mono);font-size:11px;color:var(--mid);min-width:22px}
   .feat li strong{font-weight:600;font-size:16px}
   .feat li span{display:block;color:var(--mid);font-size:14px;margin-top:2px}
 
-  /* ── Moment (dark) ── */
-  .moment{background:var(--black);color:var(--paper);padding:110px 0;text-align:center}
-  .moment .seq{font-family:var(--display);font-weight:800;font-size:clamp(34px,5vw,62px);line-height:1.12;letter-spacing:-.01em}
+  /* ── Stats ── */
+  .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper-2)}
+  .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line)}
+  .stat{background:var(--paper-2);text-align:center;padding:46px 20px}
+  .stat .num{font-family:var(--display);font-weight:900;font-size:clamp(52px,7vw,92px);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .stat .lb{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--mid);margin-top:10px}
+
+  /* ── Ritual (dark) ── */
+  .moment{background:var(--black);color:var(--paper);padding:130px 0;text-align:center;position:relative;overflow:hidden}
+  .moment .vign{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 40%,rgba(0,0,0,.55) 100%);pointer-events:none}
+  .moment .seq{font-family:var(--display);font-weight:800;font-size:clamp(36px,5.4vw,68px);line-height:1.12;letter-spacing:-.01em;position:relative}
   .moment .seq em{font-style:italic;font-weight:500;color:#cfc8bd}
-  .moment .big{margin:42px 0;font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase;font-size:13px;color:#8d867b}
+  .moment .big{margin:46px 0;font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase;font-size:13px;color:#8d867b;position:relative}
   .moment .big b{color:var(--paper)}
+  .moment .steps{display:flex;justify-content:center;gap:14px;margin-top:56px;flex-wrap:wrap;position:relative}
+  .moment .step{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#8d867b;border:1px solid var(--line-dk);border-radius:40px;padding:9px 18px}
+  .moment .step b{color:var(--paper);font-weight:500}
 
   /* ── Section base ── */
-  section{padding:90px 0}
-  .sec-head{max-width:640px;margin-bottom:52px}
-  .sec-head .eyebrow{margin-bottom:16px}
+  section{padding:96px 0}
+  .sec-head{max-width:680px;margin-bottom:54px}
+  .sec-head .eyebrow{margin-bottom:16px;display:flex;align-items:center;gap:12px}
+  .sec-head .eyebrow::before{content:"";width:34px;height:1px;background:var(--mid)}
   .sec-head h2{font-family:var(--display);font-weight:700;font-size:clamp(30px,4.4vw,52px);line-height:1.04;letter-spacing:-.01em;margin-bottom:14px}
   .sec-head p{font-size:17px;color:var(--mid)}
 
   /* ── Built for ── */
   #builtfor{background:var(--paper-2)}
   .grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--line);background:var(--line)}
-  .gcell{background:var(--white);padding:40px 32px;min-height:200px;display:flex;flex-direction:column;transition:background .25s}
-  .gcell:hover{background:var(--paper)}
+  .gcell{background:var(--white);padding:40px 32px;min-height:210px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:color .3s}
+  .gcell::before{content:"";position:absolute;inset:0;background:var(--black);transform:translateY(101%);transition:transform .35s var(--ease)}
+  .gcell:hover::before{transform:none}
+  .gcell:hover{color:var(--paper)}
+  .gcell>*{position:relative}
   .gcell .num{font-family:var(--mono);font-size:11px;color:var(--mid);letter-spacing:.1em}
   .gcell h3{font-family:var(--display);font-weight:700;font-size:25px;margin:auto 0 10px;letter-spacing:-.01em}
-  .gcell p{font-size:14.5px;color:var(--mid)}
+  .gcell p{font-size:14.5px;color:var(--mid);transition:color .3s}
+  .gcell:hover p{color:#b5aea4}
 
-  /* ── Booking includes ── */
-  .includes{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-  .inc{text-align:left}
-  .inc .ic{font-family:var(--display);font-weight:800;font-size:30px;color:var(--ink);margin-bottom:14px}
-  .inc strong{display:block;font-size:15.5px;font-weight:600;margin-bottom:4px}
-  .inc span{font-size:13.5px;color:var(--mid)}
-
-  /* ── Experience (more than a booth) ── */
-  #experience{background:var(--black);color:var(--paper)}
-  #experience .sec-head h2{color:var(--paper)}
-  #experience .sec-head p,#experience .eyebrow{color:#9a9388}
-  .compare{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:stretch}
-  .comp{border-radius:6px;padding:42px 38px}
-  .comp.ours{background:var(--paper);color:var(--ink)}
-  .comp.theirs{background:#1b1815;border:1px solid #2c2823;color:#9a9388}
-  .comp .ctitle{font-family:var(--display);font-weight:700;font-size:27px;letter-spacing:-.01em;margin-bottom:6px}
-  .comp.ours .ctitle .wordmark .oh{font-style:italic}
-  .comp.theirs .ctitle{color:#cfc8bd}
-  .comp .csub{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:24px}
-  .comp ul{list-style:none}
-  .comp li{padding:16px 0;border-top:1px solid var(--line);font-size:16px;display:flex;gap:13px;align-items:flex-start;line-height:1.45}
-  .comp.theirs li{border-top-color:#2c2823}
-  .comp li .mk{font-family:var(--display);font-weight:800;flex-shrink:0;font-size:18px;line-height:1.3}
-  .comp.ours li .mk{color:var(--ink)}
-  .comp.theirs li .mk{color:#5a544c}
+  /* ── Booth demo ── */
+  #demo{background:var(--black);color:var(--paper)}
+  #demo .sec-head h2{color:var(--paper)}
+  #demo .sec-head p,#demo .eyebrow{color:#9a9388}
+  .demo-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:54px;align-items:start}
+  .cam-frame{background:#1b1815;border:1px solid var(--line-dk);border-radius:8px;padding:18px;position:relative}
+  .cam-view{position:relative;aspect-ratio:4/3;background:#0c0b0a;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .cam-view video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);filter:grayscale(1) contrast(1.08)}
+  .cam-view .cam-msg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8d867b}
+  .cam-view .cd{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;font-size:120px;color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.6);z-index:3}
+  .cam-view .localflash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:4}
+  .cam-view .localflash.fire{animation:flash .45s ease-out}
+  .cam-bar{display:flex;align-items:center;justify-content:space-between;margin-top:16px;gap:12px;flex-wrap:wrap}
+  .cam-bar .rec{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#8d867b;display:flex;align-items:center;gap:8px}
+  .cam-bar .rec i{width:8px;height:8px;border-radius:50%;background:#5a544c;display:inline-block}
+  .cam-bar .rec.live i{background:#e0503a;animation:blink 1.2s infinite}
+  @keyframes blink{50%{opacity:.25}}
+  .demo-result{display:flex;flex-direction:column;align-items:center;gap:18px}
+  .demo-result .hint{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#8d867b;text-align:center}
+  #stripCanvas{width:200px;height:auto;background:var(--white);box-shadow:0 30px 60px -22px rgba(0,0,0,.8);transform:rotate(2deg);display:none}
+  .demo-note{font-family:var(--mono);font-size:10px;color:#5a544c;letter-spacing:.1em;text-align:center;max-width:34ch;line-height:1.8}
 
   /* ── Why ── */
   .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
@@ -160,13 +220,35 @@
   .why p{font-size:16px;color:var(--mid)}
   .why p b{color:var(--ink);font-weight:600}
 
+  /* ── Gallery ── */
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .gallery .g{aspect-ratio:3/4;overflow:hidden;background:#e6e2da;position:relative;cursor:zoom-in}
+  .gallery .g img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.55) contrast(1.02);transition:filter .5s,transform .6s var(--ease)}
+  .gallery .g:hover img{filter:grayscale(0);transform:scale(1.045)}
+  .gallery .g::after{content:"+";position:absolute;right:14px;bottom:10px;font-family:var(--display);font-size:26px;color:#fff;opacity:0;transition:opacity .3s;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+  .gallery .g:hover::after{opacity:1}
+  #lightbox{position:fixed;inset:0;z-index:9000;background:rgba(12,10,9,.94);display:none;align-items:center;justify-content:center;padding:5vmin;cursor:zoom-out}
+  #lightbox.open{display:flex}
+  #lightbox img{max-width:92vw;max-height:88vh;object-fit:contain;box-shadow:0 40px 90px rgba(0,0,0,.7)}
+  #lightbox .lb-close{position:absolute;top:22px;right:30px;font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:#9a9388;text-transform:uppercase}
+
   /* ── Testimonials ── */
   #voices{background:var(--paper-2)}
   .quotes{display:grid;grid-template-columns:1fr 1fr;gap:28px}
-  .q{background:var(--white);border:1px solid var(--line);padding:42px;display:flex;flex-direction:column}
-  .q blockquote{font-family:var(--display);font-style:italic;font-weight:500;font-size:23px;line-height:1.4;letter-spacing:-.01em;margin-bottom:24px}
+  .q{background:var(--white);border:1px solid var(--line);padding:42px;display:flex;flex-direction:column;position:relative}
+  .q::before{content:"“";position:absolute;top:8px;left:20px;font-family:var(--display);font-weight:900;font-size:90px;line-height:1;color:var(--paper-2)}
+  .q blockquote{font-family:var(--display);font-style:italic;font-weight:500;font-size:23px;line-height:1.4;letter-spacing:-.01em;margin-bottom:24px;position:relative}
   .q .who{margin-top:auto;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);line-height:1.8}
   .q .who b{color:var(--ink);font-weight:500}
+
+  /* ── FAQ ── */
+  .faq{max-width:760px}
+  .faq details{border-bottom:1px solid var(--line)}
+  .faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:24px 0;font-family:var(--display);font-weight:700;font-size:21px;letter-spacing:-.01em}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";font-family:var(--display);font-weight:500;font-size:26px;color:var(--mid);transition:transform .3s;flex-shrink:0}
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq .a{padding:0 0 26px;color:var(--mid);font-size:16px;max-width:60ch}
 
   /* ── Booking ── */
   #booking{background:var(--black);color:var(--paper)}
@@ -174,7 +256,7 @@
   #booking .sec-head p,#booking .eyebrow{color:#9a9388}
   .book-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:54px;align-items:start}
   .book-list{list-style:none}
-  .book-list li{padding:18px 0;border-bottom:1px solid #2a2622;display:flex;gap:14px;align-items:flex-start}
+  .book-list li{padding:18px 0;border-bottom:1px solid var(--line-dk);display:flex;gap:14px;align-items:flex-start}
   .book-list .ic{font-family:var(--display);color:var(--paper);font-size:18px;line-height:1.3}
   .book-list strong{display:block;font-size:16px}
   .book-list span{color:#9a9388;font-size:14px}
@@ -185,33 +267,32 @@
   .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--ink);border-color:transparent}
   .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   form .btn{width:100%;margin-top:6px}
+  form .btn[disabled]{opacity:.6;transform:none;cursor:wait}
   .form-note{font-size:11px;font-family:var(--mono);color:var(--mid);margin-top:12px;text-align:center}
   .form-success{display:none;background:#eef0e9;border:1px solid #cdd3bf;color:#43512d;padding:16px;border-radius:6px;font-size:15px;margin-bottom:16px}
-
-  /* ── Gallery ── */
-  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  .gallery .g{aspect-ratio:3/4;overflow:hidden;background:#e6e2da;position:relative}
-  .gallery .g img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.55) contrast(1.02);transition:filter .4s,transform .5s}
-  .gallery .g:hover img{filter:grayscale(0);transform:scale(1.04)}
+  .form-error{display:none;background:#f4e9e6;border:1px solid #dcc2ba;color:#7a3b2c;padding:16px;border-radius:6px;font-size:14px;margin-bottom:16px}
 
   /* ── Footer ── */
-  footer{background:var(--black);color:var(--paper);padding:72px 0 34px}
+  footer{background:var(--black);color:var(--paper);padding:76px 0 34px;border-top:1px solid var(--line-dk)}
   .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:44px;margin-bottom:46px}
   footer .wordmark{font-size:34px;color:var(--paper);margin-bottom:16px}
   footer .ftag{color:#9a9388;font-size:14px;max-width:32ch}
   .foot-col h5{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:16px;color:#9a9388}
   .foot-col a{display:block;color:var(--paper);font-size:14.5px;padding:5px 0;opacity:.85}
   .foot-col a:hover{opacity:1}
-  .foot-bottom{border-top:1px solid #2a2622;padding-top:26px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:#7a746c;flex-wrap:wrap;gap:8px}
-  .flag{color:#c98a3a;font-family:var(--mono)}
+  .foot-bottom{border-top:1px solid var(--line-dk);padding-top:26px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:#7a746c;flex-wrap:wrap;gap:8px}
+
+  /* ── WhatsApp float ── */
+  .wa{position:fixed;right:22px;bottom:22px;z-index:300;width:52px;height:52px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;box-shadow:0 14px 30px -10px rgba(0,0,0,.5);transition:transform .25s var(--ease),background .25s}
+  .wa:hover{transform:translateY(-3px) scale(1.05);background:#000}
+  .wa svg{width:24px;height:24px;fill:currentColor}
 
   /* ── Responsive ── */
   @media(max-width:920px){
-    .hero-inner{grid-template-columns:1fr;gap:46px}
+    .hero-inner{grid-template-columns:1fr;gap:46px;padding:72px 0 70px}
     .intro-grid{grid-template-columns:1fr;gap:36px}
     .grid6{grid-template-columns:1fr 1fr}
-    .includes{grid-template-columns:1fr 1fr}
-    .compare{grid-template-columns:1fr}
+    .demo-grid{grid-template-columns:1fr}
     .why-grid{grid-template-columns:1fr;gap:30px}
     .quotes{grid-template-columns:1fr}
     .book-grid{grid-template-columns:1fr;gap:36px}
@@ -223,26 +304,43 @@
   }
   @media(max-width:560px){
     .grid6{grid-template-columns:1fr}
-    .includes{grid-template-columns:1fr 1fr}
+    .stats-grid{grid-template-columns:1fr}
     .field-row{grid-template-columns:1fr}
     .hero-tagline{font-size:11px}
+    .marquee span{font-size:16px}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+    .rv{opacity:1;transform:none}
+    #loader{display:none}
   }
 </style>
 </head>
 <body>
+<a class="skip" href="#top" data-pt="Saltar para o conteúdo" data-en="Skip to content">Saltar para o conteúdo</a>
+
+<!-- ============ PRELOADER ============ -->
+<div id="loader" aria-hidden="true">
+  <div class="wordmark"><span class="oh">oh</span><span class="shoot">SHOOT</span></div>
+  <div class="count">3 · 2 · 1</div>
+</div>
+<div id="flash" aria-hidden="true"></div>
+<div id="progress" aria-hidden="true"></div>
 
 <!-- ============ HEADER ============ -->
-<header>
+<header id="header">
   <div class="wrap nav">
-    <a href="#top" class="wordmark"><span class="oh">oh</span><span class="shoot">SHOOT</span></a>
+    <a href="#top" class="wordmark" aria-label="oh SHOOT"><span class="oh">oh</span><span class="shoot">SHOOT</span></a>
     <nav class="nav-links" id="navLinks">
       <a href="#builtfor" data-pt="Criado para" data-en="Built for">Criado para</a>
-      <a href="#why" data-pt="Porquê" data-en="Why">Porquê</a>
+      <a href="#demo" data-pt="Experimente" data-en="Try it">Experimente</a>
       <a href="#gallery" data-pt="Galeria" data-en="Gallery">Galeria</a>
+      <a href="#faq" data-pt="Perguntas" data-en="FAQ">Perguntas</a>
       <a href="#booking" data-pt="Reservar" data-en="Book">Reservar</a>
     </nav>
     <div class="nav-right">
-      <div class="lang">
+      <div class="lang" role="group" aria-label="Language">
         <button data-lang="pt" class="active">PT</button>
         <button data-lang="en">EN</button>
       </div>
@@ -256,6 +354,7 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero">
+  <div class="hero-bg" aria-hidden="true">SHOOT</div>
   <div class="wrap hero-inner">
     <div>
       <div class="label eyebrow" data-pt="Eventos · Portugal" data-en="Events · Portugal">Eventos · Portugal</div>
@@ -263,7 +362,7 @@
       <p class="lead" data-pt="Uma cabine de fotos vintage para momentos modernos. Sem filtros, sem repetições — só momentos reais, impressos em 60 segundos para levar para casa." data-en="A vintage-inspired photo booth for modern moments. No filters, no retakes — just real moments, printed in 60 seconds to take home.">Uma cabine de fotos vintage para momentos modernos. Sem filtros, sem repetições — só momentos reais, impressos em 60 segundos para levar para casa.</p>
       <div class="hero-cta">
         <a href="#booking" class="btn" data-pt="Ver disponibilidade" data-en="Check availability">Ver disponibilidade</a>
-        <a href="#gallery" class="btn btn-ghost" data-pt="Ver galeria" data-en="See gallery">Ver galeria</a>
+        <a href="#demo" class="btn btn-ghost" data-pt="Experimentar a cabine" data-en="Try the booth">Experimentar a cabine</a>
       </div>
       <div class="hero-tagline">
         <span data-pt="4 fotos" data-en="4 shots">4 fotos</span>
@@ -272,15 +371,20 @@
       </div>
     </div>
     <div class="hero-photo">
-      <img src="booth.png" alt="Cabine fotográfica oh SHOOT" loading="eager">
+      <img id="boothImg" src="booth.png" alt="Cabine fotográfica oh SHOOT" loading="eager">
     </div>
   </div>
 </section>
 
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="mqTrack"></div>
+</div>
+
 <!-- ============ INTRO ============ -->
 <section class="intro">
   <div class="wrap intro-grid">
-    <div>
+    <div class="rv">
       <div class="label eyebrow" style="margin-bottom:16px" data-pt="Uma abordagem moderna à criação de memórias" data-en="A modern take on memory-making">Uma abordagem moderna à criação de memórias</div>
       <h2 data-pt="Trazemos de volta a sensação de momentos genuínos, espontâneos e imperfeitos." data-en="We bring back the feeling of candid, imperfect, real moments.">Trazemos de volta a sensação de momentos genuínos, espontâneos e imperfeitos.</h2>
       <p data-pt="Uma cabine de fotos pensada ao detalhe para elevar qualquer espaço — e dar aos seus convidados algo real para levar." data-en="A photo booth designed down to the detail to elevate any space — and give your guests something real to take home.">Uma cabine de fotos pensada ao detalhe para elevar qualquer espaço — e dar aos seus convidados algo real para levar.</p>
@@ -291,37 +395,87 @@
       </div>
     </div>
     <ul class="feat">
-      <li><span class="n">01</span><div><strong data-pt="Impressões instantâneas" data-en="Instant prints">Impressões instantâneas</strong><span data-pt="Tiras físicas em 60 segundos." data-en="Physical strips in 60 seconds.">Tiras físicas em 60 segundos.</span></div></li>
-      <li><span class="n">02</span><div><strong data-pt="Galeria digital" data-en="Digital gallery">Galeria digital</strong><span data-pt="Todas as fotos, partilháveis ao instante." data-en="Every photo, instantly shareable.">Todas as fotos, partilháveis ao instante.</span></div></li>
-      <li><span class="n">03</span><div><strong data-pt="Tira personalizada com branding" data-en="Custom branded strip">Tira personalizada com branding</strong><span data-pt="Cada frame com a identidade do seu evento." data-en="Every frame with your event's identity.">Cada frame com a identidade do seu evento.</span></div></li>
-      <li><span class="n">04</span><div><strong data-pt="Pensada para valorizar o espaço" data-en="Designed to elevate any space">Pensada para valorizar o espaço</strong><span data-pt="Um objeto bonito, não só uma máquina." data-en="A beautiful object, not just a machine.">Um objeto bonito, não só uma máquina.</span></div></li>
+      <li class="rv d1"><span class="n">01</span><div><strong data-pt="Impressões instantâneas" data-en="Instant prints">Impressões instantâneas</strong><span data-pt="Tiras físicas em 60 segundos." data-en="Physical strips in 60 seconds.">Tiras físicas em 60 segundos.</span></div></li>
+      <li class="rv d2"><span class="n">02</span><div><strong data-pt="Galeria digital" data-en="Digital gallery">Galeria digital</strong><span data-pt="Todas as fotos, partilháveis ao instante." data-en="Every photo, instantly shareable.">Todas as fotos, partilháveis ao instante.</span></div></li>
+      <li class="rv d3"><span class="n">03</span><div><strong data-pt="Tira personalizada com branding" data-en="Custom branded strip">Tira personalizada com branding</strong><span data-pt="Cada frame com a identidade do seu evento." data-en="Every frame with your event's identity.">Cada frame com a identidade do seu evento.</span></div></li>
+      <li class="rv d4"><span class="n">04</span><div><strong data-pt="Pensada para valorizar o espaço" data-en="Designed to elevate any space">Pensada para valorizar o espaço</strong><span data-pt="Um objeto bonito, não só uma máquina." data-en="A beautiful object, not just a machine.">Um objeto bonito, não só uma máquina.</span></div></li>
     </ul>
   </div>
 </section>
 
+<!-- ============ STATS ============ -->
+<div class="stats">
+  <div class="stats-grid">
+    <div class="stat rv"><div class="num" data-count="4">0</div><div class="lb" data-pt="fotos por sessão" data-en="shots per session">fotos por sessão</div></div>
+    <div class="stat rv d1"><div class="num" data-count="60">0</div><div class="lb" data-pt="segundos até à impressão" data-en="seconds to print">segundos até à impressão</div></div>
+    <div class="stat rv d2"><div class="num" data-count="1">0</div><div class="lb" data-pt="tira para guardar para sempre" data-en="strip to keep forever">tira para guardar para sempre</div></div>
+  </div>
+</div>
+
 <!-- ============ MOMENT ============ -->
 <section class="moment">
+  <div class="vign"></div>
   <div class="wrap">
-    <div class="seq" data-pt="Entre.<br><em>Feche a cortina.</em><br>Seja você." data-en="Step in.<br><em>Close the curtain.</em><br>Be yourself.">Entre.<br><em>Feche a cortina.</em><br>Seja você.</div>
-    <div class="big" data-pt="4 fotos · 60 segundos · <b>vale a pena</b>" data-en="4 shots · 60 seconds · <b>worth it</b>">4 fotos · 60 segundos · <b>vale a pena</b></div>
-    <div class="seq" data-pt="Saia com <em>algo real.</em>" data-en="Walk out with <em>something real.</em>">Saia com <em>algo real.</em></div>
+    <div class="seq rv" data-pt="Entre.<br><em>Feche a cortina.</em><br>Seja você." data-en="Step in.<br><em>Close the curtain.</em><br>Be yourself.">Entre.<br><em>Feche a cortina.</em><br>Seja você.</div>
+    <div class="big rv d1" data-pt="4 fotos · 60 segundos · <b>vale a pena</b>" data-en="4 shots · 60 seconds · <b>worth it</b>">4 fotos · 60 segundos · <b>vale a pena</b></div>
+    <div class="seq rv d2" data-pt="Saia com <em>algo real.</em>" data-en="Walk out with <em>something real.</em>">Saia com <em>algo real.</em></div>
+    <div class="steps rv d3">
+      <span class="step" data-pt="<b>01</b> Entre" data-en="<b>01</b> Step in"><b>01</b> Entre</span>
+      <span class="step" data-pt="<b>02</b> Feche a cortina" data-en="<b>02</b> Close the curtain"><b>02</b> Feche a cortina</span>
+      <span class="step" data-pt="<b>03</b> 4 flashes" data-en="<b>03</b> 4 flashes"><b>03</b> 4 flashes</span>
+      <span class="step" data-pt="<b>04</b> Leve a tira" data-en="<b>04</b> Take the strip"><b>04</b> Leve a tira</span>
+    </div>
   </div>
 </section>
 
 <!-- ============ BUILT FOR ============ -->
 <section id="builtfor">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head rv">
       <div class="label eyebrow" data-pt="Para quem" data-en="Built for">Para quem</div>
       <h2 data-pt="Construído para todos os momentos" data-en="Built for every moment">Construído para todos os momentos</h2>
     </div>
     <div class="grid6">
-      <div class="gcell"><span class="num">01</span><h3 data-pt="Casamentos" data-en="Weddings">Casamentos</h3><p data-pt="De cerimónias íntimas a grandes festas." data-en="From intimate ceremonies to grand receptions.">De cerimónias íntimas a grandes festas.</p></div>
-      <div class="gcell"><span class="num">02</span><h3 data-pt="Ativações de marca" data-en="Brand activations">Ativações de marca</h3><p data-pt="Transforme a sua campanha numa impressão física." data-en="Turn your campaign into a physical print.">Transforme a sua campanha numa impressão física.</p></div>
-      <div class="gcell"><span class="num">03</span><h3 data-pt="Festivais" data-en="Festivals">Festivais</h3><p data-pt="A cabine que os convidados realmente recordam." data-en="The one booth guests actually remember.">A cabine que os convidados realmente recordam.</p></div>
-      <div class="gcell"><span class="num">04</span><h3 data-pt="Aniversários" data-en="Birthdays">Aniversários</h3><p data-pt="Porque todos merecem uma tira de fotos na festa." data-en="Because everyone deserves a photo strip at a party.">Porque todos merecem uma tira de fotos na festa.</p></div>
-      <div class="gcell"><span class="num">05</span><h3 data-pt="Eventos corporativos" data-en="Corporate events">Eventos corporativos</h3><p data-pt="Ativações de marca e momentos de equipa que ficam." data-en="Brand activations and team moments that last.">Ativações de marca e momentos de equipa que ficam.</p></div>
-      <div class="gcell"><span class="num">06</span><h3 data-pt="Festas privadas" data-en="Private parties">Festas privadas</h3><p data-pt="Nenhuma ocasião é pequena para um momento real." data-en="No occasion too small for a real moment.">Nenhuma ocasião é pequena para um momento real.</p></div>
+      <div class="gcell rv"><span class="num">01</span><h3 data-pt="Casamentos" data-en="Weddings">Casamentos</h3><p data-pt="De cerimónias íntimas a grandes festas." data-en="From intimate ceremonies to grand receptions.">De cerimónias íntimas a grandes festas.</p></div>
+      <div class="gcell rv d1"><span class="num">02</span><h3 data-pt="Ativações de marca" data-en="Brand activations">Ativações de marca</h3><p data-pt="Transforme a sua campanha numa impressão física." data-en="Turn your campaign into a physical print.">Transforme a sua campanha numa impressão física.</p></div>
+      <div class="gcell rv d2"><span class="num">03</span><h3 data-pt="Festivais" data-en="Festivals">Festivais</h3><p data-pt="A cabine que os convidados realmente recordam." data-en="The one booth guests actually remember.">A cabine que os convidados realmente recordam.</p></div>
+      <div class="gcell rv d3"><span class="num">04</span><h3 data-pt="Aniversários" data-en="Birthdays">Aniversários</h3><p data-pt="Porque todos merecem uma tira de fotos na festa." data-en="Because everyone deserves a photo strip at a party.">Porque todos merecem uma tira de fotos na festa.</p></div>
+      <div class="gcell rv d4"><span class="num">05</span><h3 data-pt="Eventos corporativos" data-en="Corporate events">Eventos corporativos</h3><p data-pt="Ativações de marca e momentos de equipa que ficam." data-en="Brand activations and team moments that last.">Ativações de marca e momentos de equipa que ficam.</p></div>
+      <div class="gcell rv d5"><span class="num">06</span><h3 data-pt="Festas privadas" data-en="Private parties">Festas privadas</h3><p data-pt="Nenhuma ocasião é pequena para um momento real." data-en="No occasion too small for a real moment.">Nenhuma ocasião é pequena para um momento real.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOTH DEMO ============ -->
+<section id="demo">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="label eyebrow" data-pt="Experimente agora" data-en="Try it now">Experimente agora</div>
+      <h2 data-pt="A cabine, no seu ecrã" data-en="The booth, on your screen">A cabine, no seu ecrã</h2>
+      <p data-pt="Ative a câmara, pose quatro vezes e receba a sua tira oh SHOOT — aqui mesmo, em preto e branco." data-en="Turn on your camera, strike four poses, and get your own oh SHOOT strip — right here, in black &amp; white.">Ative a câmara, pose quatro vezes e receba a sua tira oh SHOOT — aqui mesmo, em preto e branco.</p>
+    </div>
+    <div class="demo-grid">
+      <div class="cam-frame rv">
+        <div class="cam-view">
+          <video id="camVideo" playsinline muted autoplay></video>
+          <div class="cam-msg" id="camMsg">
+            <span data-pt="A sua câmara está desligada" data-en="Your camera is off">A sua câmara está desligada</span>
+            <button class="btn btn-light" id="camStart" data-pt="Ativar câmara" data-en="Enable camera">Ativar câmara</button>
+          </div>
+          <div class="cd" id="camCd">3</div>
+          <div class="localflash" id="camFlash"></div>
+        </div>
+        <div class="cam-bar">
+          <span class="rec" id="camRec"><i></i><span data-pt="Câmara desligada" data-en="Camera off">Câmara desligada</span></span>
+          <button class="btn btn-light" id="camShoot" disabled data-pt="Tirar 4 fotos" data-en="Take 4 shots">Tirar 4 fotos</button>
+        </div>
+      </div>
+      <div class="demo-result rv d2">
+        <div class="hint" data-pt="A sua tira sai aqui ↓" data-en="Your strip prints here ↓">A sua tira sai aqui ↓</div>
+        <canvas id="stripCanvas" width="400" height="1310"></canvas>
+        <a class="btn btn-light" id="stripDownload" style="display:none" download="ohshoot-strip.png" data-pt="Guardar a tira" data-en="Save your strip">Guardar a tira</a>
+        <p class="demo-note" data-pt="Tudo acontece no seu dispositivo. Nenhuma foto é enviada nem guardada por nós." data-en="Everything happens on your device. No photo is uploaded or stored by us.">Tudo acontece no seu dispositivo. Nenhuma foto é enviada nem guardada por nós.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -329,34 +483,14 @@
 <!-- ============ WHY ============ -->
 <section id="why">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head rv">
       <div class="label eyebrow" data-pt="Porquê oh SHOOT" data-en="Why oh SHOOT">Porquê oh SHOOT</div>
       <h2 data-pt="Três razões simples" data-en="Three simple reasons">Três razões simples</h2>
     </div>
     <div class="why-grid">
-      <div class="why"><h3 data-pt="Instantâneo" data-en="Instant">Instantâneo</h3><p data-pt="Impressões em 60 segundos. <b>Sem app, sem espera.</b> Só papel." data-en="Prints in 60 seconds. <b>No app, no waiting.</b> Just paper.">Impressões em 60 segundos. <b>Sem app, sem espera.</b> Só papel.</p></div>
-      <div class="why"><h3 data-pt="Analógico" data-en="Analog">Analógico</h3><p data-pt="Impressões físicas. <b>Daquelas que acabam no frigorífico.</b>" data-en="Physical prints. <b>The kind that end up on fridges.</b>">Impressões físicas. <b>Daquelas que acabam no frigorífico.</b></p></div>
-      <div class="why"><h3 data-pt="Seu" data-en="Yours">Seu</h3><p data-pt="Design de tira personalizado. <b>Cada frame com o nome do seu evento.</b>" data-en="Custom strip design. <b>Every frame with your event's name.</b>">Design de tira personalizado. <b>Cada frame com o nome do seu evento.</b></p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ TESTIMONIALS ============ -->
-<section id="voices">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="label eyebrow" data-pt="O que dizem" data-en="What they said">O que dizem</div>
-      <h2 data-pt="Momentos reais, pessoas reais" data-en="Real moments, real people">Momentos reais, pessoas reais</h2>
-    </div>
-    <div class="quotes">
-      <div class="q">
-        <blockquote data-pt="&ldquo;A cabine de fotos foi o detalhe mais comentado do nosso casamento. Os convidados ainda têm as tiras no frigorífico.&rdquo;" data-en="&ldquo;The photo booth was the most-talked-about detail of our wedding. Guests still have the strips on their fridges.&rdquo;">&ldquo;A cabine de fotos foi o detalhe mais comentado do nosso casamento. Os convidados ainda têm as tiras no frigorífico.&rdquo;</blockquote>
-        <div class="who"><b>Mariana &amp; Rui</b><br><span data-pt="Casados em outubro de 2024 · Quinta da Tapada, Sintra" data-en="Married October 2024 · Quinta da Tapada, Sintra">Casados em outubro de 2024 · Quinta da Tapada, Sintra</span></div>
-      </div>
-      <div class="q">
-        <blockquote data-pt="&ldquo;Reservámos a oh SHOOT para o nosso lançamento de produto. Quatrocentas impressões. Zero reclamações. Exatamente o que precisávamos.&rdquo;" data-en="&ldquo;We booked oh SHOOT for our product launch. Four hundred prints. Zero complaints. Exactly what we needed.&rdquo;">&ldquo;Reservámos a oh SHOOT para o nosso lançamento de produto. Quatrocentas impressões. Zero reclamações. Exatamente o que precisávamos.&rdquo;</blockquote>
-        <div class="who"><b data-pt="Gestora de Eventos" data-en="Events Manager">Gestora de Eventos</b><br><span>Startup Lisboa Conference 2024</span></div>
-      </div>
+      <div class="why rv"><h3 data-pt="Instantâneo" data-en="Instant">Instantâneo</h3><p data-pt="Impressões em 60 segundos. <b>Sem app, sem espera.</b> Só papel." data-en="Prints in 60 seconds. <b>No app, no waiting.</b> Just paper.">Impressões em 60 segundos. <b>Sem app, sem espera.</b> Só papel.</p></div>
+      <div class="why rv d1"><h3 data-pt="Analógico" data-en="Analog">Analógico</h3><p data-pt="Impressões físicas. <b>Daquelas que acabam no frigorífico.</b>" data-en="Physical prints. <b>The kind that end up on fridges.</b>">Impressões físicas. <b>Daquelas que acabam no frigorífico.</b></p></div>
+      <div class="why rv d2"><h3 data-pt="Seu" data-en="Yours">Seu</h3><p data-pt="Design de tira personalizado. <b>Cada frame com o nome do seu evento.</b>" data-en="Custom strip design. <b>Every frame with your event's name.</b>">Design de tira personalizado. <b>Cada frame com o nome do seu evento.</b></p></div>
     </div>
   </div>
 </section>
@@ -364,15 +498,72 @@
 <!-- ============ GALLERY ============ -->
 <section id="gallery">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head rv">
       <div class="label eyebrow" data-pt="Galeria" data-en="Gallery">Galeria</div>
       <h2 data-pt="Veja em ação" data-en="See it in action">Veja em ação</h2>
       <p data-pt="A cabine em eventos reais — e as tiras que ficam na memória." data-en="The booth at real events — and the strips people keep.">A cabine em eventos reais — e as tiras que ficam na memória.</p>
     </div>
     <div class="gallery">
-      <div class="g"><img src="venue.jpg" alt="Cabine oh SHOOT num evento interior" loading="lazy"></div>
-      <div class="g"><img src="strip.jpg" alt="Tiras de fotos em preto e branco da oh SHOOT" loading="lazy"></div>
-      <div class="g"><img src="garden.jpg" alt="Cabine oh SHOOT num evento ao ar livre" loading="lazy"></div>
+      <div class="g rv"><img src="venue.jpg" alt="Cabine oh SHOOT num evento interior" loading="lazy"></div>
+      <div class="g rv d1"><img src="strip.jpg" alt="Tiras de fotos em preto e branco da oh SHOOT" loading="lazy"></div>
+      <div class="g rv d2"><img src="garden.jpg" alt="Cabine oh SHOOT num evento ao ar livre" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+<div id="lightbox" role="dialog" aria-modal="true"><span class="lb-close" data-pt="Fechar ✕" data-en="Close ✕">Fechar ✕</span><img alt=""></div>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section id="voices">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="label eyebrow" data-pt="O que dizem" data-en="What they said">O que dizem</div>
+      <h2 data-pt="Momentos reais, pessoas reais" data-en="Real moments, real people">Momentos reais, pessoas reais</h2>
+    </div>
+    <div class="quotes">
+      <div class="q rv">
+        <blockquote data-pt="A cabine de fotos foi o detalhe mais comentado do nosso casamento. Os convidados ainda têm as tiras no frigorífico." data-en="The photo booth was the most-talked-about detail of our wedding. Guests still have the strips on their fridges.">A cabine de fotos foi o detalhe mais comentado do nosso casamento. Os convidados ainda têm as tiras no frigorífico.</blockquote>
+        <div class="who"><b>Mariana &amp; Rui</b><br><span data-pt="Casados em outubro de 2024 · Quinta da Tapada, Sintra" data-en="Married October 2024 · Quinta da Tapada, Sintra">Casados em outubro de 2024 · Quinta da Tapada, Sintra</span></div>
+      </div>
+      <div class="q rv d1">
+        <blockquote data-pt="Reservámos a oh SHOOT para o nosso lançamento de produto. Quatrocentas impressões. Zero reclamações. Exatamente o que precisávamos." data-en="We booked oh SHOOT for our product launch. Four hundred prints. Zero complaints. Exactly what we needed.">Reservámos a oh SHOOT para o nosso lançamento de produto. Quatrocentas impressões. Zero reclamações. Exatamente o que precisávamos.</blockquote>
+        <div class="who"><b data-pt="Gestora de Eventos" data-en="Events Manager">Gestora de Eventos</b><br><span>Startup Lisboa Conference 2024</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="label eyebrow" data-pt="Perguntas frequentes" data-en="FAQ">Perguntas frequentes</div>
+      <h2 data-pt="Antes de reservar" data-en="Before you book">Antes de reservar</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary data-pt="De quanto espaço precisa a cabine?" data-en="How much space does the booth need?">De quanto espaço precisa a cabine?</summary>
+        <p class="a" data-pt="Cerca de 2 × 2 metros e uma tomada normal (230V) por perto. Montamos e desmontamos tudo — só precisa de nos indicar o canto." data-en="About 2 × 2 metres and a standard power outlet (230V) nearby. We handle setup and teardown — you just point us to the corner.">Cerca de 2 × 2 metros e uma tomada normal (230V) por perto. Montamos e desmontamos tudo — só precisa de nos indicar o canto.</p>
+      </details>
+      <details>
+        <summary data-pt="As impressões são ilimitadas?" data-en="Are prints unlimited?">As impressões são ilimitadas?</summary>
+        <p class="a" data-pt="Sim — durante o período contratado, os seus convidados podem usar a cabine as vezes que quiserem. Cada sessão imprime na hora." data-en="Yes — during your booked hours, guests can use the booth as many times as they like. Every session prints on the spot.">Sim — durante o período contratado, os seus convidados podem usar a cabine as vezes que quiserem. Cada sessão imprime na hora.</p>
+      </details>
+      <details>
+        <summary data-pt="Recebemos também as fotos em digital?" data-en="Do we also get the photos digitally?">Recebemos também as fotos em digital?</summary>
+        <p class="a" data-pt="Sim. Depois do evento enviamos uma galeria digital privada com todas as fotos, pronta a partilhar." data-en="Yes. After the event we send a private digital gallery with every photo, ready to share.">Sim. Depois do evento enviamos uma galeria digital privada com todas as fotos, pronta a partilhar.</p>
+      </details>
+      <details>
+        <summary data-pt="Podemos personalizar a tira?" data-en="Can we customise the strip?">Podemos personalizar a tira?</summary>
+        <p class="a" data-pt="Claro — nomes, data, logótipo ou identidade da marca. Desenhamos a tira consigo antes do evento, sem custo adicional." data-en="Of course — names, date, logo or brand identity. We design the strip with you before the event, at no extra cost.">Claro — nomes, data, logótipo ou identidade da marca. Desenhamos a tira consigo antes do evento, sem custo adicional.</p>
+      </details>
+      <details>
+        <summary data-pt="Fazem eventos fora de Lisboa?" data-en="Do you travel outside Lisbon?">Fazem eventos fora de Lisboa?</summary>
+        <p class="a" data-pt="A Grande Lisboa está incluída. Outras zonas do país são possíveis mediante orçamento de deslocação — pergunte-nos." data-en="Greater Lisbon is included. Other regions are possible with a travel quote — just ask.">A Grande Lisboa está incluída. Outras zonas do país são possíveis mediante orçamento de deslocação — pergunte-nos.</p>
+      </details>
+      <details>
+        <summary data-pt="Como funciona a reserva?" data-en="How does booking work?">Como funciona a reserva?</summary>
+        <p class="a" data-pt="Envie o formulário com a data e o local. Respondemos em 24h com disponibilidade e orçamento; um depósito de 50% garante a sua data." data-en="Send the form with your date and venue. We reply within 24h with availability and a quote; a 50% deposit secures your date.">Envie o formulário com a data e o local. Respondemos em 24h com disponibilidade e orçamento; um depósito de 50% garante a sua data.</p>
+      </details>
     </div>
   </div>
 </section>
@@ -380,33 +571,34 @@
 <!-- ============ BOOKING ============ -->
 <section id="booking">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head rv">
       <div class="label eyebrow" data-pt="Vamos a isto" data-en="Let's do it">Vamos a isto</div>
       <h2 data-pt="O seu evento merece" data-en="Your event deserves it">O seu evento merece</h2>
       <p data-pt="Diga-nos a data e o local. Respondemos em 24 horas com disponibilidade e orçamento." data-en="Tell us the date and place. We reply within 24 hours with availability and a quote.">Diga-nos a data e o local. Respondemos em 24 horas com disponibilidade e orçamento.</p>
     </div>
     <div class="book-grid">
-      <ul class="book-list">
+      <ul class="book-list rv">
         <li><span class="ic">→</span><span><strong data-pt="Resposta em 24h" data-en="24h response">Resposta em 24h</strong><span data-pt="Confirmação de disponibilidade num dia útil." data-en="Availability confirmed within a business day.">Confirmação de disponibilidade num dia útil.</span></span></li>
         <li><span class="ic">→</span><span><strong data-pt="Depósito de 50%" data-en="50% deposit">Depósito de 50%</strong><span data-pt="Confirma e garante a sua data." data-en="Confirms and secures your date.">Confirma e garante a sua data.</span></span></li>
         <li><span class="ic">→</span><span><strong data-pt="Grande Lisboa" data-en="Greater Lisbon">Grande Lisboa</strong><span data-pt="Outras zonas mediante orçamento." data-en="Other locations on request.">Outras zonas mediante orçamento.</span></span></li>
         <li><span class="ic">→</span><span><strong data-pt="Fale connosco" data-en="Talk to us">Fale connosco</strong><span>events@ohshoot.pt · <a href="https://wa.me/351918453745" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">WhatsApp +351 918 453 745</a></span></span></li>
       </ul>
-      <form id="bookForm">
+      <form id="bookForm" class="rv d1" novalidate>
         <div class="form-success" id="formSuccess" data-pt="Obrigado! Recebemos o seu pedido e respondemos em 24h. 📸" data-en="Thank you! We've received your request and will reply within 24h. 📸">Obrigado! Recebemos o seu pedido e respondemos em 24h. 📸</div>
+        <div class="form-error" id="formError" data-pt="Não foi possível enviar. Escreva-nos diretamente para events@ohshoot.pt ou pelo WhatsApp." data-en="Something went wrong. Please email events@ohshoot.pt or reach us on WhatsApp.">Não foi possível enviar. Escreva-nos diretamente para events@ohshoot.pt ou pelo WhatsApp.</div>
         <div class="field">
           <label data-pt="Nome" data-en="Name">Nome</label>
-          <input type="text" name="name" required>
+          <input type="text" name="name" required autocomplete="name">
         </div>
         <div class="field-row">
-          <div class="field"><label data-pt="Email" data-en="Email">Email</label><input type="email" name="email" required></div>
-          <div class="field"><label data-pt="Telefone" data-en="Phone">Telefone</label><input type="tel" name="phone"></div>
+          <div class="field"><label data-pt="Email" data-en="Email">Email</label><input type="email" name="email" required autocomplete="email"></div>
+          <div class="field"><label data-pt="Telefone" data-en="Phone">Telefone</label><input type="tel" name="phone" autocomplete="tel"></div>
         </div>
         <div class="field-row">
           <div class="field"><label data-pt="Data do evento" data-en="Event date">Data do evento</label><input type="date" name="date" required></div>
           <div class="field">
             <label data-pt="Duração" data-en="Duration">Duração</label>
-            <select name="package">
+            <select name="duration">
               <option data-pt="Meio dia (até 5h)" data-en="Half day (up to 5h)">Meio dia (até 5h)</option>
               <option data-pt="Dia inteiro (até 8h)" data-en="Full day (up to 8h)">Dia inteiro (até 8h)</option>
               <option data-pt="Premium (até 12h)" data-en="Premium (up to 12h)">Premium (até 12h)</option>
@@ -434,7 +626,7 @@
           <textarea name="message" rows="3"></textarea>
         </div>
         <button type="submit" class="btn" data-pt="Pedir disponibilidade" data-en="Request availability">Pedir disponibilidade</button>
-        <p class="form-note flag">[Demo: o formulário ainda não envia. Ligar a email/CRM/Calendar.]</p>
+        <p class="form-note" data-pt="Enviado com segurança. Sem spam — só a resposta ao seu pedido." data-en="Sent securely. No spam — just the reply to your request.">Enviado com segurança. Sem spam — só a resposta ao seu pedido.</p>
       </form>
     </div>
   </div>
@@ -453,8 +645,9 @@
       <div class="foot-col">
         <h5 data-pt="Navegar" data-en="Explore">Navegar</h5>
         <a href="#builtfor" data-pt="Criado para" data-en="Built for">Criado para</a>
-        <a href="#why" data-pt="Porquê" data-en="Why">Porquê</a>
+        <a href="#demo" data-pt="Experimente" data-en="Try it">Experimente</a>
         <a href="#gallery" data-pt="Galeria" data-en="Gallery">Galeria</a>
+        <a href="#faq" data-pt="Perguntas" data-en="FAQ">Perguntas</a>
         <a href="#booking" data-pt="Reservar" data-en="Book">Reservar</a>
       </div>
       <div class="foot-col">
@@ -471,38 +664,280 @@
   </div>
 </footer>
 
+<a class="wa" href="https://wa.me/351918453745" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2c-5.5 0-9.96 4.45-9.96 9.94 0 1.75.46 3.46 1.34 4.96L2 22l5.23-1.37a9.96 9.96 0 0 0 4.8 1.22h.01c5.5 0 9.96-4.45 9.96-9.94A9.9 9.9 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.1.81.83-3.03-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.17.25-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.13-1.05-.39-2-1.23-.73-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.13-.55-1.34-.76-1.84-.2-.48-.4-.42-.55-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.6.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29z"/></svg>
+</a>
+
 <script>
-  // ---- Language toggle ----
-  const langButtons=document.querySelectorAll('.lang button');
-  function setLang(lang){
+(function(){
+  "use strict";
+
+  /* ---- Language: saved choice > browser > PT ---- */
+  var langButtons=document.querySelectorAll('.lang button');
+  function setLang(lang,save){
     document.documentElement.lang=lang;
-    document.querySelectorAll('[data-pt]').forEach(el=>{
-      const val=el.getAttribute('data-'+lang);
+    document.querySelectorAll('[data-pt]').forEach(function(el){
+      var val=el.getAttribute('data-'+lang);
       if(val!==null) el.innerHTML=val;
     });
-    langButtons.forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+    langButtons.forEach(function(b){b.classList.toggle('active',b.dataset.lang===lang);});
+    if(save){try{localStorage.setItem('ohshoot-lang',lang);}catch(e){}}
+    buildMarquee(lang);
   }
-  langButtons.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+  langButtons.forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.lang,true);});});
+  var startLang='pt';
+  try{
+    startLang=localStorage.getItem('ohshoot-lang')||((navigator.language||'pt').toLowerCase().indexOf('pt')===0?'pt':'en');
+  }catch(e){}
 
-  // ---- Mobile menu ----
-  const burger=document.getElementById('burger');
-  const navLinks=document.getElementById('navLinks');
-  burger.addEventListener('click',()=>navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+  /* ---- Marquee ---- */
+  var mqTrack=document.getElementById('mqTrack');
+  function buildMarquee(lang){
+    var words=lang==='pt'
+      ?['Sem filtros','<i>Sem repetições</i>','Só momentos','<i>4 fotos</i>','60 segundos','<i>Vale a pena</i>']
+      :['No filters','<i>No retakes</i>','Just moments','<i>4 shots</i>','60 seconds','<i>Worth it</i>'];
+    var seq='';
+    words.forEach(function(w){seq+='<span>'+w+' ·</span>';});
+    mqTrack.innerHTML=seq+seq+seq+seq; /* duplicated for seamless loop */
+  }
+  setLang(startLang,false);
 
-  // ---- Booking form (demo) ----
-  const form=document.getElementById('bookForm');
-  form.addEventListener('submit',e=>{
-    e.preventDefault();
-    document.getElementById('formSuccess').style.display='block';
-    form.querySelector('.form-note').style.display='none';
-    document.getElementById('formSuccess').scrollIntoView({behavior:'smooth',block:'center'});
-    form.reset();
+  /* ---- Preloader: 3·2·1 + flash ---- */
+  var loader=document.getElementById('loader'),flash=document.getElementById('flash');
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function finishLoad(){
+    loader.classList.add('done');
+    document.body.classList.add('loaded');
+  }
+  if(reduced){finishLoad();}
+  else{
+    var count=loader.querySelector('.count'),n=3;
+    count.textContent=n;
+    var iv=setInterval(function(){
+      n--;
+      if(n>0){count.textContent=n;}
+      else{
+        clearInterval(iv);
+        flash.classList.add('fire');
+        setTimeout(finishLoad,120);
+        setTimeout(function(){flash.classList.remove('fire');},600);
+      }
+    },420);
+    setTimeout(function(){if(!loader.classList.contains('done'))finishLoad();},2600);
+  }
+
+  /* ---- Scroll progress + header hide on scroll down ---- */
+  var progress=document.getElementById('progress'),header=document.getElementById('header'),lastY=0;
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement;
+    var pct=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
+    progress.style.width=pct+'%';
+    var y=h.scrollTop;
+    header.classList.toggle('hide',y>420&&y>lastY);
+    lastY=y;
+  },{passive:true});
+
+  /* ---- Reveal on scroll ---- */
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
+    });
+  },{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+
+  /* ---- Stat counters ---- */
+  var cio=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting)return;
+      cio.unobserve(en.target);
+      var el=en.target,target=+el.dataset.count,t0=null;
+      function tick(t){
+        if(!t0)t0=t;
+        var p=Math.min((t-t0)/900,1);
+        el.textContent=Math.round(target*(1-Math.pow(1-p,3)));
+        if(p<1)requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  },{threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el);});
+
+  /* ---- Hero booth parallax tilt ---- */
+  var boothImg=document.getElementById('boothImg');
+  if(boothImg&&!reduced&&matchMedia('(pointer:fine)').matches){
+    var hero=document.querySelector('.hero');
+    hero.addEventListener('mousemove',function(e){
+      var r=hero.getBoundingClientRect();
+      var x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+      boothImg.style.transform='rotateY('+(x*6)+'deg) rotateX('+(-y*4)+'deg) translateY('+(y*-6)+'px)';
+    });
+    hero.addEventListener('mouseleave',function(){boothImg.style.transform='';});
+  }
+
+  /* ---- Mobile menu ---- */
+  var burger=document.getElementById('burger'),navLinks=document.getElementById('navLinks');
+  burger.addEventListener('click',function(){navLinks.classList.toggle('open');});
+  navLinks.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){navLinks.classList.remove('open');});});
+
+  /* ---- Gallery lightbox ---- */
+  var lb=document.getElementById('lightbox'),lbImg=lb.querySelector('img');
+  document.querySelectorAll('.gallery .g img').forEach(function(img){
+    img.parentElement.addEventListener('click',function(){
+      lbImg.src=img.src;lbImg.alt=img.alt;lb.classList.add('open');document.body.style.overflow='hidden';
+    });
+  });
+  function closeLb(){lb.classList.remove('open');document.body.style.overflow='';}
+  lb.addEventListener('click',closeLb);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLb();});
+
+  /* ---- BOOTH DEMO: webcam → 4 shots → B/W strip ---- */
+  var video=document.getElementById('camVideo'),camMsg=document.getElementById('camMsg'),
+      camStart=document.getElementById('camStart'),camShoot=document.getElementById('camShoot'),
+      camCd=document.getElementById('camCd'),camFlash=document.getElementById('camFlash'),
+      camRec=document.getElementById('camRec'),
+      canvas=document.getElementById('stripCanvas'),ctx=canvas.getContext('2d'),
+      dl=document.getElementById('stripDownload'),stream=null;
+
+  var TXT={
+    pt:{off:'Câmara desligada',live:'Em direto',denied:'Sem acesso à câmara. Verifique as permissões do navegador.',unsupported:'O seu navegador não suporta câmara.',again:'Repetir',shoot:'Tirar 4 fotos',smile:'Sorria!'},
+    en:{off:'Camera off',live:'Live',denied:'No camera access. Check your browser permissions.',unsupported:'Your browser does not support camera access.',again:'Go again',shoot:'Take 4 shots',smile:'Smile!'}
+  };
+  function T(k){return TXT[document.documentElement.lang==='en'?'en':'pt'][k];}
+
+  camStart.addEventListener('click',function(){
+    if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+      camMsg.innerHTML='<span>'+T('unsupported')+'</span>';return;
+    }
+    navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:1280}},audio:false})
+      .then(function(s){
+        stream=s;video.srcObject=s;
+        camMsg.style.display='none';
+        camShoot.disabled=false;
+        camRec.classList.add('live');
+        camRec.querySelector('span').textContent=T('live');
+      })
+      .catch(function(){camMsg.innerHTML='<span>'+T('denied')+'</span>';});
   });
 
-  // ---- Min date = today ----
-  const dateInput=document.querySelector('input[name=date]');
-  if(dateInput) dateInput.min=new Date().toISOString().split('T')[0];
+  function wait(ms){return new Promise(function(r){setTimeout(r,ms);});}
+
+  function countdown(){
+    return new Promise(function(resolve){
+      var n=3;camCd.style.display='flex';camCd.textContent=n;
+      var iv=setInterval(function(){
+        n--;
+        if(n>0){camCd.textContent=n;}
+        else{
+          clearInterval(iv);camCd.style.display='none';
+          camFlash.classList.add('fire');
+          setTimeout(function(){camFlash.classList.remove('fire');},500);
+          resolve();
+        }
+      },700);
+    });
+  }
+
+  function grab(){
+    var w=video.videoWidth,h=video.videoHeight;
+    var c=document.createElement('canvas');
+    var size=Math.min(w,h);
+    c.width=640;c.height=640;
+    var cc=c.getContext('2d');
+    cc.translate(c.width,0);cc.scale(-1,1); /* mirror like a booth */
+    cc.filter='grayscale(1) contrast(1.1)';
+    cc.drawImage(video,(w-size)/2,(h-size)/2,size,size,0,0,c.width,c.height);
+    return c;
+  }
+
+  function drawStrip(frames){
+    var W=canvas.width,pad=24,fw=W-pad*2,gap=18,footer=140;
+    canvas.height=pad+(fw+gap)*4-gap+footer;
+    ctx.fillStyle='#ffffff';ctx.fillRect(0,0,W,canvas.height);
+    frames.forEach(function(f,i){
+      ctx.drawImage(f,pad,pad+i*(fw+gap),fw,fw);
+    });
+    var cy=pad+(fw+gap)*4-gap+62;
+    ctx.fillStyle='#1a1714';ctx.textAlign='center';
+    ctx.font='italic 500 34px Denton, "Playfair Display", Georgia, serif';
+    var ohW=ctx.measureText('oh ').width;
+    ctx.font='900 34px Denton, "Playfair Display", Georgia, serif';
+    var shW=ctx.measureText('SHOOT').width;
+    var startX=W/2-(ohW+shW)/2;
+    ctx.textAlign='left';
+    ctx.font='italic 500 34px Denton, "Playfair Display", Georgia, serif';
+    ctx.fillText('oh ',startX,cy);
+    ctx.font='900 34px Denton, "Playfair Display", Georgia, serif';
+    ctx.fillText('SHOOT',startX+ohW,cy);
+    ctx.font='11px "IBM Plex Mono", monospace';ctx.fillStyle='#8a847c';ctx.textAlign='center';
+    var d=new Date();
+    ctx.fillText('OHSHOOT.PT · '+d.toLocaleDateString(document.documentElement.lang==='en'?'en-GB':'pt-PT'),W/2,cy+34);
+    canvas.style.display='block';
+    dl.href=canvas.toDataURL('image/png');
+    dl.style.display='inline-block';
+  }
+
+  var shooting=false;
+  camShoot.addEventListener('click',async function(){
+    if(shooting||!stream)return;
+    shooting=true;camShoot.disabled=true;
+    canvas.style.display='none';dl.style.display='none';
+    var frames=[];
+    for(var i=0;i<4;i++){
+      await countdown();
+      frames.push(grab());
+      await wait(450);
+    }
+    drawStrip(frames);
+    camShoot.textContent=T('again');
+    camShoot.disabled=false;shooting=false;
+    if(matchMedia('(max-width:920px)').matches){
+      canvas.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+  });
+
+  /* Stop camera when leaving the section (battery/privacy) */
+  var demoSec=document.getElementById('demo');
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden&&stream){stream.getTracks().forEach(function(t){t.stop();});stream=null;
+      camMsg.style.display='flex';camShoot.disabled=true;camRec.classList.remove('live');
+      camRec.querySelector('span').textContent=T('off');camShoot.textContent=T('shoot');
+    }
+  });
+
+  /* ---- Booking form: FormSubmit AJAX with graceful fallback ---- */
+  var form=document.getElementById('bookForm'),
+      ok=document.getElementById('formSuccess'),
+      err=document.getElementById('formError');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!form.reportValidity())return;
+    var btn=form.querySelector('button[type=submit]');
+    btn.disabled=true;
+    var data={};
+    new FormData(form).forEach(function(v,k){data[k]=v;});
+    data._subject='oh SHOOT — novo pedido de disponibilidade ('+(data.date||'')+')';
+    data._template='table';data._captcha='false';
+    fetch('https://formsubmit.co/ajax/events@ohshoot.pt',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(data)
+    }).then(function(r){if(!r.ok)throw 0;return r.json();})
+      .then(function(){
+        ok.style.display='block';err.style.display='none';
+        ok.scrollIntoView({behavior:'smooth',block:'center'});
+        form.reset();btn.disabled=false;
+      })
+      .catch(function(){
+        err.style.display='block';ok.style.display='none';
+        err.scrollIntoView({behavior:'smooth',block:'center'});
+        btn.disabled=false;
+      });
+  });
+
+  /* ---- Min date = today ---- */
+  var dateInput=document.querySelector('input[name=date]');
+  if(dateInput)dateInput.min=new Date().toISOString().split('T')[0];
+})();
 </script>
 </body>
 </html>
