@@ -749,30 +749,54 @@
     lastY=y;
   },{passive:true});
 
-  /* ---- Reveal on scroll ---- */
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(en){
-      if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
-    });
-  },{threshold:.15,rootMargin:'0px 0px -40px 0px'});
-  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
-
   /* ---- Stat counters ---- */
-  var cio=new IntersectionObserver(function(entries){
-    entries.forEach(function(en){
-      if(!en.isIntersecting)return;
-      cio.unobserve(en.target);
-      var el=en.target,target=+el.dataset.count,t0=null;
-      function tick(t){
-        if(!t0)t0=t;
-        var p=Math.min((t-t0)/900,1);
-        el.textContent=Math.round(target*(1-Math.pow(1-p,3)));
-        if(p<1)requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
+  function runCount(el){
+    if(el.dataset.done)return;
+    el.dataset.done='1';
+    var target=+el.dataset.count,t0=null;
+    function tick(t){
+      if(!t0)t0=t;
+      var p=Math.min((t-t0)/900,1);
+      el.textContent=Math.round(target*(1-Math.pow(1-p,3)));
+      if(p<1)requestAnimationFrame(tick);
+    }
+    if('requestAnimationFrame' in window)requestAnimationFrame(tick);
+    else el.textContent=target;
+  }
+
+  /* ---- Reveal on scroll (IO + scroll fallback so nothing ever stays hidden) ---- */
+  function revealEl(el){
+    el.classList.add('in');
+    el.querySelectorAll('[data-count]').forEach(runCount);
+    if(el.hasAttribute('data-count'))runCount(el);
+  }
+  var pendingRv=Array.prototype.slice.call(document.querySelectorAll('.rv'));
+  function fallbackReveal(){
+    if(!pendingRv.length)return;
+    pendingRv=pendingRv.filter(function(el){
+      if(el.classList.contains('in'))return false;
+      var r=el.getBoundingClientRect();
+      if(r.top<window.innerHeight-20&&r.bottom>0){revealEl(el);return false;}
+      return true;
     });
-  },{threshold:.6});
-  document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el);});
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){revealEl(en.target);io.unobserve(en.target);}
+      });
+    },{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+    pendingRv.forEach(function(el){io.observe(el);});
+    var cio=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting)return;
+        cio.unobserve(en.target);runCount(en.target);
+      });
+    },{threshold:.6});
+    document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el);});
+  }
+  window.addEventListener('scroll',fallbackReveal,{passive:true});
+  setTimeout(fallbackReveal,600);
 
   /* ---- Hero booth parallax tilt ---- */
   var boothImg=document.getElementById('boothImg');
