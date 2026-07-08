@@ -517,6 +517,22 @@
 </section>
 <div id="lightbox" role="dialog" aria-modal="true"><span class="lb-close" data-pt="Fechar ✕" data-en="Close ✕">Fechar ✕</span><img alt=""></div>
 
+<!-- ============ TESTIMONIALS ============ -->
+<section id="voices">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="label eyebrow" data-pt="O que dizem" data-en="What they said">O que dizem</div>
+      <h2 data-pt="Momentos reais, pessoas reais" data-en="Real moments, real people">Momentos reais, pessoas reais</h2>
+    </div>
+    <div class="quotes" style="grid-template-columns:1fr;max-width:860px">
+      <div class="q rv">
+        <blockquote data-pt="Um detalhe que só trouxe valor ao nosso casamento e que se transformou na melhor recordação que os nossos convidados levaram para casa!!! Sem dúvida que tornaram o nosso dia mais inesquecível e feliz ♥️ Estava toda a gente louca para tirar fotos no photobooth!" data-en="A detail that only added value to our wedding and became the best keepsake our guests took home!!! They truly made our day more unforgettable and joyful ♥️ Everyone was dying to take photos in the photobooth!">Um detalhe que só trouxe valor ao nosso casamento e que se transformou na melhor recordação que os nossos convidados levaram para casa!!! Sem dúvida que tornaram o nosso dia mais inesquecível e feliz ♥️ Estava toda a gente louca para tirar fotos no photobooth!</blockquote>
+        <div class="who"><b>Francisca &amp; Rafael</b><br><span data-pt="Casamento 2026" data-en="Wedding 2026">Casamento 2026</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ FAQ ============ -->
 <section id="faq">
   <div class="wrap">
@@ -913,8 +929,9 @@
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body:JSON.stringify(data)
-    }).then(function(r){if(!r.ok)throw 0;return r.json();})
-      .then(function(){
+    }).then(function(r){return r.json();})
+      .then(function(j){
+        if(!j||!(j.success===true||j.success==='true'))throw 0;
         ok.style.display='block';err.style.display='none';
         ok.scrollIntoView({behavior:'smooth',block:'center'});
         form.reset();btn.disabled=false;
