@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://ohshoot.pt/eventos/">
+<meta property="og:title" content="Aluguer de cabine de fotos para eventos - oh SHOOT">
+<meta property="og:description" content="Aluguer de cabine de fotos para casamentos, marcas, empresas e festivais na Grande Lisboa. Hospedeira, impressões ilimitadas e tira personalizada.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ohshoot.pt/eventos/">
+<meta property="og:image" content="https://ohshoot.pt/assets/legs.jpg">
+<meta property="og:locale" content="pt_PT">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23100e0c'/%3E%3Ccircle cx='32' cy='30' r='14' fill='none' stroke='%23f3f1ee' stroke-width='4'/%3E%3Ccircle cx='32' cy='30' r='5' fill='%23f3f1ee'/%3E%3Crect x='18' y='48' width='28' height='4' fill='%23f3f1ee'/%3E%3C/svg%3E">
 <title>Aluguer de cabine de fotos para eventos - oh SHOOT</title>
 <meta name="description" content="Aluguer de cabine de fotos para casamentos, marcas, empresas e festivais na Grande Lisboa. Hospedeira, impressões ilimitadas e tira personalizada.">
 <meta name="theme-color" content="#100e0c">
@@ -58,7 +65,6 @@ section[style*="padding: 72px 32px 88px"]{padding:40px 20px 56px !important}}
 <a href="../#frota" style="text-decoration: none; padding: 12px 0">As cabines</a>
 </nav>
 <div style="display: flex; align-items: center; gap: 20px">
-<div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.08em; display: flex; gap: 10px"><a href="#top" style="padding: 12px 2px; font-weight: 500">PT</a><span title="Versão inglesa em breve" style="padding: 12px 2px; color: #6b655e">EN</span></div>
 <a href="#pedir" style="text-decoration: none; background: #100e0c; color: #f3f1ee; padding: 12px 22px; font-size: 15px; font-weight: 500; border-radius: 2px">Ver disponibilidade</a>
 </div>
 </div>
@@ -230,7 +236,21 @@ section[style*="padding: 72px 32px 88px"]{padding:40px 20px 56px !important}}
 </main>
 </div>
 <script>
-document.querySelectorAll('form[data-preview]').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var b=f.querySelector('button[type=submit]');b.textContent='Pré-visualização - formulário ainda não ligado';});});
+document.querySelectorAll('form[data-form]').forEach(function(f){
+  var msg=f.querySelector('[data-msg]');
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!f.reportValidity())return;
+    var b=f.querySelector('button[type=submit]');b.disabled=true;msg.textContent='A enviar...';
+    var d={};new FormData(f).forEach(function(v,k){d[k]=v;});
+    d._subject='oh SHOOT - novo pedido ('+(d.tipo||f.getAttribute('data-form'))+')';
+    d._template='table';d._captcha='false';
+    fetch('https://formsubmit.co/ajax/events@ohshoot.pt',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)})
+      .then(function(r){return r.json();})
+      .then(function(j){if(!j||!(j.success===true||j.success==='true'))throw 0;msg.textContent='Pedido enviado. Respondemos em breve.';f.reset();b.disabled=false;})
+      .catch(function(){msg.textContent='Não foi possível enviar. Escreve-nos para events@ohshoot.pt ou por WhatsApp.';b.disabled=false;});
+  });
+});
 </script>
 </body>
 </html>
