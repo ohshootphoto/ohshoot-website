@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cabine de fotos para lojas, bares e hotéis - oh SHOOT</title>
+<meta name="description" content="Uma cabine de fotos residente no teu espaço, com contrato mensal. Instalação, manutenção e papel por nossa conta.">
 <link rel="canonical" href="https://ohshoot.pt/espacos/">
+<link rel="alternate" hreflang="pt" href="https://ohshoot.pt/espacos/">
+<link rel="alternate" hreflang="en" href="https://ohshoot.pt/en/venues/">
+<link rel="alternate" hreflang="x-default" href="https://ohshoot.pt/espacos/">
 <meta property="og:title" content="Cabine de fotos para lojas, bares e hotéis - oh SHOOT">
 <meta property="og:description" content="Uma cabine de fotos residente no teu espaço, com contrato mensal. Instalação, manutenção e papel por nossa conta.">
 <meta property="og:type" content="website">
@@ -11,8 +16,6 @@
 <meta property="og:image" content="https://ohshoot.pt/assets/legs.jpg">
 <meta property="og:locale" content="pt_PT">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23100e0c'/%3E%3Ccircle cx='32' cy='30' r='14' fill='none' stroke='%23f3f1ee' stroke-width='4'/%3E%3Ccircle cx='32' cy='30' r='5' fill='%23f3f1ee'/%3E%3Crect x='18' y='48' width='28' height='4' fill='%23f3f1ee'/%3E%3C/svg%3E">
-<title>Cabine de fotos para lojas, bares e hotéis - oh SHOOT</title>
-<meta name="description" content="Uma cabine de fotos residente no teu espaço, com contrato mensal. Instalação, manutenção e papel por nossa conta.">
 <meta name="theme-color" content="#100e0c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,6 +68,7 @@ section[style*="padding: 72px 32px 88px"]{padding:40px 20px 56px !important}}
 <a href="../#frota" style="text-decoration: none; padding: 12px 0">As cabines</a>
 </nav>
 <div style="display: flex; align-items: center; gap: 20px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.08em; display: flex; gap: 10px"><a href="../espacos/" hreflang="pt" lang="pt" aria-label="Português" aria-current="true" style="padding: 12px 2px; font-weight: 500">PT</a><a href="../en/venues/" hreflang="en" lang="en" aria-label="English" style="padding: 12px 2px; text-decoration: none; color: #6b655e">EN</a></div>
 <a href="#pedir" style="text-decoration: none; background: #100e0c; color: #f3f1ee; padding: 12px 22px; font-size: 15px; font-weight: 500; border-radius: 2px">Receber a cabine</a>
 </div>
 </div>
@@ -216,18 +220,20 @@ section[style*="padding: 72px 32px 88px"]{padding:40px 20px 56px !important}}
 </div>
 <script>
 document.querySelectorAll('form[data-form]').forEach(function(f){
-  var msg=f.querySelector('[data-msg]');
+  var en=document.documentElement.lang==='en',msg=f.querySelector('[data-msg]');
+  var T=en?{s:'Sending...',ok:'Request sent. We will reply soon.',ko:'Could not send. Write to events@ohshoot.pt or message us on WhatsApp.'}:{s:'A enviar...',ok:'Pedido enviado. Respondemos em breve.',ko:'Não foi possível enviar. Escreve-nos para events@ohshoot.pt ou por WhatsApp.'};
   f.addEventListener('submit',function(e){
     e.preventDefault();
     if(!f.reportValidity())return;
-    var b=f.querySelector('button[type=submit]');b.disabled=true;msg.textContent='A enviar...';
+    var b=f.querySelector('button[type=submit]');b.disabled=true;msg.textContent=T.s;
     var d={};new FormData(f).forEach(function(v,k){d[k]=v;});
+    d.idioma=en?'EN':'PT';
     d._subject='oh SHOOT - novo pedido ('+(d.tipo||f.getAttribute('data-form'))+')';
     d._template='table';d._captcha='false';
     fetch('https://formsubmit.co/ajax/events@ohshoot.pt',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)})
       .then(function(r){return r.json();})
-      .then(function(j){if(!j||!(j.success===true||j.success==='true'))throw 0;msg.textContent='Pedido enviado. Respondemos em breve.';f.reset();b.disabled=false;})
-      .catch(function(){msg.textContent='Não foi possível enviar. Escreve-nos para events@ohshoot.pt ou por WhatsApp.';b.disabled=false;});
+      .then(function(j){if(!j||!(j.success===true||j.success==='true'))throw 0;msg.textContent=T.ok;f.reset();b.disabled=false;})
+      .catch(function(){msg.textContent=T.ko;b.disabled=false;});
   });
 });
 </script>

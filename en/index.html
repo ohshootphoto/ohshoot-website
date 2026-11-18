@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>oh SHOOT - Photo booth for events and venues in Portugal</title>
+<meta name="description" content="Analog-style photo booth for events and venues in Portugal. Four poses, one printed strip in 60 seconds.">
+<link rel="canonical" href="https://ohshoot.pt/en/">
+<link rel="alternate" hreflang="pt" href="https://ohshoot.pt/">
+<link rel="alternate" hreflang="en" href="https://ohshoot.pt/en/">
+<link rel="alternate" hreflang="x-default" href="https://ohshoot.pt/">
+<meta property="og:title" content="oh SHOOT - Photo booth for events and venues in Portugal">
+<meta property="og:description" content="Analog-style photo booth for events and venues in Portugal. Four poses, one printed strip in 60 seconds.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ohshoot.pt/en/">
+<meta property="og:image" content="https://ohshoot.pt/assets/legs.jpg">
+<meta property="og:locale" content="en_GB">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23100e0c'/%3E%3Ccircle cx='32' cy='30' r='14' fill='none' stroke='%23f3f1ee' stroke-width='4'/%3E%3Ccircle cx='32' cy='30' r='5' fill='%23f3f1ee'/%3E%3Crect x='18' y='48' width='28' height='4' fill='%23f3f1ee'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"oh SHOOT","description":"Analog-style photo booth for events and venues in Portugal. Four poses, one printed strip in 60 seconds.","url":"https://ohshoot.pt/en/","image":"https://ohshoot.pt/assets/legs.jpg","email":"events@ohshoot.pt","telephone":"+351918453745","areaServed":"Grande Lisboa, Portugal","sameAs":["https://instagram.com/ohshoot.pt"]}
+</script>
+<meta name="theme-color" content="#100e0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Denton';src:url('../assets/denton-black.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}
+@font-face{font-family:'Denton';src:url('../assets/denton-italic.woff2') format('woff2');font-weight:400;font-style:italic;font-display:swap}
+:root{--display:'Denton',Georgia,serif;--mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;-webkit-font-smoothing:antialiased}img{max-width:100%}
+a{color:#1a1714}a:hover{color:#000}
+.demo-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:54px;align-items:start}
+.cam-frame{background:#1b1815;border:1px solid #2a2622;border-radius:8px;padding:18px}
+.cam-view{position:relative;aspect-ratio:4/3;background:#0c0b0a;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.cam-view video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);filter:grayscale(1) contrast(1.08)}
+.cam-msg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#b8b3ab}
+.cd{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;font-size:120px;color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.6);z-index:3}
+.localflash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:4}
+.localflash.fire{animation:flash .45s ease-out}
+@keyframes flash{0%{opacity:.95}100%{opacity:0}}@keyframes blink{50%{opacity:.25}}
+.cam-bar{display:flex;align-items:center;justify-content:space-between;margin-top:16px;gap:12px;flex-wrap:wrap}
+.rec{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#b8b3ab;display:flex;align-items:center;gap:8px}
+.rec i{width:8px;height:8px;border-radius:50%;background:#5a544c;display:inline-block}.rec.live i{background:#e0503a;animation:blink 1.2s infinite}
+.btn-light{font:inherit;font-weight:500;background:#f3f1ee;color:#100e0c;border:0;padding:13px 24px;border-radius:2px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-light:disabled{opacity:.4;cursor:default}
+.demo-result{display:flex;flex-direction:column;align-items:center;gap:18px}
+.hint{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#b8b3ab;text-align:center}
+#stripCanvas{width:200px;height:auto;background:#fff;box-shadow:0 30px 60px -22px rgba(0,0,0,.8);transform:rotate(2deg);display:none}
+.demo-note{font-size:14px;color:#b8b3ab;text-align:center;max-width:30ch;margin:0}
+input:focus,select:focus,textarea:focus,a:focus-visible,button:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+@media(max-width:820px){.demo-grid{grid-template-columns:1fr}
+header nav{order:3;width:100%}
+[style*="repeat(4, minmax(0, 1fr))"],[style*="repeat(3, minmax(0, 1fr))"]{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+ul[style*="repeat(2, minmax(0, 1fr))"]{grid-template-columns:1fr !important}
+section>div[style*="padding: 96px 32px"],section>div[style*="padding: 88px 32px"]{padding:64px 20px !important}
+section[style*="padding: 72px 32px 88px"]{padding:40px 20px 56px !important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.localflash.fire,.rec.live i{animation:none}}
+</style>
+</head>
+<body>
+<div style="background: #f3f1ee; color: #1a1714; font-family: 'DM Sans', system-ui, sans-serif; font-size: 17px; line-height: 1.6">
+
+<header style="border-bottom: 1px solid #d8d4cc">
+<div style="max-width: 1200px; margin: 0 auto; padding: 18px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px">
+<a href="#top" aria-label="oh SHOOT" style="text-decoration: none; font-family: 'Denton', Georgia, serif; font-size: 28px; line-height: 1; color: #100e0c"><span style="font-style: italic; font-weight: 400">oh</span><span style="font-weight: 900">SHOOT</span></a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 15px">
+<a href="../en/events/" style="text-decoration: none; padding: 12px 0">Events</a>
+<a href="../en/venues/" style="text-decoration: none; padding: 12px 0">Venues</a>
+<a href="#onde" style="text-decoration: none; padding: 12px 0">Find a booth</a>
+<a href="#frota" style="text-decoration: none; padding: 12px 0">The booths</a>
+<a href="#demo" style="text-decoration: none; padding: 12px 0">Try it</a>
+</nav>
+<div style="display: flex; align-items: center; gap: 20px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.08em; display: flex; gap: 10px"><a href="../" hreflang="pt" lang="pt" aria-label="Português" style="padding: 12px 2px; text-decoration: none; color: #6b655e">PT</a><a href="../en/" hreflang="en" lang="en" aria-label="English" aria-current="true" style="padding: 12px 2px; font-weight: 500">EN</a></div>
+<a href="#contacto" style="text-decoration: none; background: #100e0c; color: #f3f1ee; padding: 12px 22px; font-size: 15px; font-weight: 500; border-radius: 2px">Get a quote</a>
+</div>
+</div>
+</header>
+
+<main id="top">
+
+<section style="max-width: 1200px; margin: 0 auto; padding: 72px 32px 88px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
+<div style="flex: 1 1 460px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b655e; margin-bottom: 28px">Analog-style photo booth · Portugal</div>
+<h1 style="margin: 0; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(44px, 6vw, 84px); line-height: 0.98; letter-spacing: -0.01em; color: #100e0c">The photo booth for your event. <span style="font-style: italic; font-weight: 400">Or for your venue.</span></h1>
+<p style="margin: 28px 0 0; max-width: 500px; font-size: 19px; color: #3a3530">Step in. Pull the curtain. Four poses, one printed strip in 60 seconds. No filters, no retakes.</p>
+<div style="margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px">
+<a href="../en/events/" style="text-decoration: none; background: #100e0c; color: #f3f1ee; padding: 15px 26px; font-weight: 500; border-radius: 2px">I have an event</a>
+<a href="../en/venues/" style="text-decoration: none; border: 1px solid #100e0c; color: #100e0c; padding: 14px 26px; font-weight: 500; border-radius: 2px">I have a venue</a>
+</div>
+<a href="#onde" style="display: inline-block; margin-top: 22px; padding: 10px 0; font-size: 15px">I just want photos - where can I find a booth?</a>
+</div>
+<div style="flex: 1 1 380px; min-width: 0; max-width: 520px">
+<img src="../assets/legs.jpg" alt="Guest sitting inside the oh SHOOT booth, green curtain half open" style="display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover">
+</div>
+</section>
+
+<section aria-labelledby="h-caminhos" style="border-top: 1px solid #d8d4cc">
+<div style="max-width: 1200px; margin: 0 auto; padding: 88px 32px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b655e">Two ways to have the booth</div>
+<h2 id="h-caminhos" style="margin: 14px 0 48px; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(34px, 4vw, 54px); line-height: 1.02; color: #100e0c">For a few hours. <span style="font-style: italic; font-weight: 400">Or for a few months.</span></h2>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+
+<article style="flex: 1 1 420px; min-width: 0; background: #ffffff; border: 1px solid #d8d4cc; display: flex; flex-direction: column">
+<img src="../assets/dance.jpg" alt="Guests dancing next to the oh SHOOT booth at a party" style="display: block; width: 100%; height: 340px; object-fit: cover">
+<div style="padding: 36px; display: flex; flex-direction: column; gap: 18px; flex-grow: 1">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #6b655e">01 · BY THE HOUR OR DAY</div>
+<h3 style="margin: 0; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 44px; line-height: 1; color: #100e0c">Events</h3>
+<p style="margin: 0; font-size: 18px">We bring the booth to your event. We set up, stay with it and pack down.</p>
+<ul style="margin: 0; padding: 0; list-style: none; border-top: 1px solid #d8d4cc">
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc; display: flex; flex-wrap: wrap; gap: 4px 16px"><span style="flex: 0 0 150px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #6b655e; padding-top: 4px">WHO IT'S FOR</span><span style="flex: 1 1 200px">Weddings, brands, companies, festivals, private parties</span></li>
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc; display: flex; flex-wrap: wrap; gap: 4px 16px"><span style="flex: 0 0 150px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #6b655e; padding-top: 4px">WHO PAYS FOR THE PHOTOS</span><span style="flex: 1 1 200px">The host treats everyone, or each guest pays for their own strip</span></li>
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc; display: flex; flex-wrap: wrap; gap: 4px 16px"><span style="flex: 0 0 150px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #6b655e; padding-top: 4px">INCLUDES</span><span style="flex: 1 1 200px">Attendant, custom strip, setup and pack-down</span></li>
+</ul>
+<a href="../en/events/" style="margin-top: auto; align-self: flex-start; text-decoration: none; background: #100e0c; color: #f3f1ee; padding: 14px 24px; font-weight: 500; border-radius: 2px">See events</a>
+</div>
+</article>
+
+<article style="flex: 1 1 420px; min-width: 0; background: #ffffff; border: 1px solid #d8d4cc; display: flex; flex-direction: column">
+<img src="../assets/event-07.jpg" alt="oh SHOOT booth installed at the entrance of a venue" style="display: block; width: 100%; height: 340px; object-fit: cover">
+<div style="padding: 36px; display: flex; flex-direction: column; gap: 18px; flex-grow: 1">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #6b655e">02 · BY THE MONTH</div>
+<h3 style="margin: 0; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 44px; line-height: 1; color: #100e0c">Venues</h3>
+<p style="margin: 0; font-size: 18px">The booth lives in your venue. Your customers step in, pay and leave with a strip.</p>
+<ul style="margin: 0; padding: 0; list-style: none; border-top: 1px solid #d8d4cc">
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc; display: flex; flex-wrap: wrap; gap: 4px 16px"><span style="flex: 0 0 150px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #6b655e; padding-top: 4px">WHO IT'S FOR</span><span style="flex: 1 1 200px">Shops, bars, restaurants, hotels, shopping centres</span></li>
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc; display: flex; flex-wrap: wrap; gap: 4px 16px"><span style="flex: 0 0 150px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #6b655e; padding-top: 4px">WHO PAYS FOR THE PHOTOS</span><span style="flex: 1 1 200px">The public pays per session, or your brand treats them</span></li>
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc; display: flex; flex-wrap: wrap; gap: 4px 16px"><span style="flex: 0 0 150px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #6b655e; padding-top: 4px">INCLUDES</span><span style="flex: 1 1 200px">Installation, maintenance, paper and built-in payments</span></li>
+</ul>
+<a href="../en/venues/" style="margin-top: auto; align-self: flex-start; text-decoration: none; background: #100e0c; color: #f3f1ee; padding: 14px 24px; font-weight: 500; border-radius: 2px">See venues</a>
+</div>
+</article>
+
+</div>
+</div>
+</section>
+
+<section id="frota" aria-labelledby="h-frota" style="background: #100e0c; color: #f3f1ee">
+<div style="max-width: 1200px; margin: 0 auto; padding: 96px 32px">
+<div style="display: flex; flex-wrap: wrap; gap: 32px 64px; align-items: flex-end; justify-content: space-between; margin-bottom: 56px">
+<div style="flex: 1 1 480px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #b8b3ab">The booths</div>
+<h2 id="h-frota" style="margin: 14px 0 0; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(34px, 4vw, 54px); line-height: 1.02">Four booths. <span style="font-style: italic; font-weight: 400">Each with its own job.</span></h2>
+</div>
+<p style="flex: 1 1 340px; min-width: 0; margin: 0; max-width: 440px; color: #dad9db">Two have a fixed address and are open to anyone passing by. Two are on the road, from event to event. All built by us.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px">
+<div style="flex: 1 1 220px; min-width: 0; border: 1px solid #3a3530; padding: 28px; display: flex; flex-direction: column; gap: 56px">
+<div style="font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 64px; line-height: 1">01</div>
+<div style="display: flex; flex-direction: column; gap: 10px"><strong style="font-size: 20px">Fixed address</strong><span style="font-size: 15px; color: #dad9db">Open to anyone passing by. Address revealed soon.</span>
+<div style="margin-top: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; display: flex; align-items: center; gap: 10px"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #a8c545"></span>RESIDENT</div></div>
+</div>
+<div style="flex: 1 1 220px; min-width: 0; border: 1px solid #3a3530; padding: 28px; display: flex; flex-direction: column; gap: 56px">
+<div style="font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 64px; line-height: 1">02</div>
+<div style="display: flex; flex-direction: column; gap: 10px"><strong style="font-size: 20px">Private events</strong><span style="font-size: 15px; color: #dad9db">Weddings, brands, companies and parties.</span>
+<div style="margin-top: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; display: flex; align-items: center; gap: 10px"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #a8c545"></span>AVAILABLE FOR YOUR DATE</div></div>
+</div>
+<div style="flex: 1 1 220px; min-width: 0; border: 1px solid #3a3530; padding: 28px; display: flex; flex-direction: column; gap: 56px">
+<div style="font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 64px; line-height: 1">03</div>
+<div style="display: flex; flex-direction: column; gap: 10px"><strong style="font-size: 20px">Festivals</strong><span style="font-size: 15px; color: #dad9db">Several days in a row, from festival to festival.</span>
+<div style="margin-top: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; display: flex; align-items: center; gap: 10px"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #a8c545"></span>AVAILABLE FOR FESTIVALS</div></div>
+</div>
+<div style="flex: 1 1 220px; min-width: 0; border: 1px dashed #b8b3ab; padding: 28px; display: flex; flex-direction: column; gap: 56px">
+<div style="font-family: 'Denton', Georgia, serif; font-style: italic; font-weight: 400; font-size: 64px; line-height: 1; color: #dad9db">04</div>
+<div style="display: flex; flex-direction: column; gap: 10px"><strong style="font-size: 20px">Dance floor</strong><span style="font-size: 15px; color: #dad9db">Moving in next to a dance floor. Address coming soon.</span>
+<div style="margin-top: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; display: flex; align-items: center; gap: 10px"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; border: 1px solid #f3f1ee; box-sizing: border-box"></span>BEING BUILT</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="onde" aria-labelledby="h-onde">
+<div style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-wrap: wrap; gap: 56px">
+<div style="flex: 1 1 340px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b655e">Find a booth</div>
+<h2 id="h-onde" style="margin: 14px 0 20px; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(34px, 4vw, 54px); line-height: 1.02; color: #100e0c">Coming soon, <span style="font-style: italic; font-weight: 400">near you.</span></h2>
+<p style="margin: 0; max-width: 400px">The addresses of our street booths will be revealed later this year. Walk by, step in and leave with your strip.</p>
+<a href="https://instagram.com/ohshoot.pt" style="display: inline-block; margin-top: 24px; text-decoration: none; border: 1px solid #100e0c; color: #100e0c; padding: 14px 24px; font-weight: 500; border-radius: 2px">Follow @ohshoot.pt to hear first</a>
+<img src="../assets/delivery.jpg" alt="Hand taking the photo strip from the booth's delivery slot" style="display: block; margin-top: 36px; width: 100%; max-width: 400px; aspect-ratio: 4 / 3; object-fit: cover">
+</div>
+<div style="flex: 2 1 480px; min-width: 0">
+<ul style="margin: 0; padding: 0; list-style: none; border-top: 1px solid #100e0c">
+<li style="padding: 26px 0; border-bottom: 1px solid #d8d4cc; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 24px">
+<span style="flex: 1 1 260px; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 30px; line-height: 1.1; color: #100e0c">Booth 01</span>
+<span style="flex: 1 1 200px; color: #3a3530">Fixed address, open to anyone passing by</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #6b655e; padding: 10px 0">COMING SOON</span>
+</li>
+<li style="padding: 26px 0; border-bottom: 1px solid #d8d4cc; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 24px">
+<span style="flex: 1 1 260px; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 30px; line-height: 1.1; color: #100e0c">Booth 04</span>
+<span style="flex: 1 1 200px; color: #3a3530">Next to a dance floor</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #6b655e; padding: 10px 0">COMING SOON</span>
+</li>
+<li style="padding: 26px 0; border-bottom: 1px solid #d8d4cc; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 24px">
+<span style="flex: 1 1 260px; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 30px; line-height: 1.1; color: #100e0c">Booth 03</span>
+<span style="flex: 1 1 200px; color: #3a3530">On the road, from festival to festival</span>
+<a href="../en/events/" style="font-size: 15px; padding: 10px 0">Book it for a festival</a>
+</li>
+<li style="padding: 26px 0; border-bottom: 1px solid #d8d4cc; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 24px">
+<span style="flex: 1 1 260px; font-family: 'Denton', Georgia, serif; font-style: italic; font-weight: 400; font-size: 30px; line-height: 1.1; color: #100e0c">Your venue, here.</span>
+<span style="flex: 1 1 200px; color: #3a3530">Want a resident booth? Talk to us about the next one.</span>
+<a href="../en/venues/" style="font-size: 15px; padding: 10px 0; font-weight: 500">Host a booth</a>
+</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section id="demo" aria-labelledby="h-demo" style="background: #100e0c; color: #f3f1ee">
+<div style="max-width: 1200px; margin: 0 auto; padding: 96px 32px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #b8b3ab">Try it now</div>
+<h2 id="h-demo" style="margin: 14px 0 16px; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(34px, 4vw, 54px); line-height: 1.02">The booth, <span style="font-style: italic; font-weight: 400">on your screen.</span></h2>
+<p style="margin: 0 0 48px; max-width: 520px; color: #dad9db">Turn on your camera, strike four poses and get your oh SHOOT strip - right here, in black and white.</p>
+<div class="demo-grid">
+<div class="cam-frame">
+<div class="cam-view">
+<video id="camVideo" playsinline muted autoplay></video>
+<div class="cam-msg" id="camMsg"><span>Your camera is off</span>
+<button type="button" class="btn-light" id="camStart">Turn on camera</button></div>
+<div class="cd" id="camCd">3</div>
+<div class="localflash" id="camFlash"></div>
+</div>
+<div class="cam-bar">
+<span class="rec" id="camRec"><i></i><span>Camera off</span></span>
+<button type="button" class="btn-light" id="camShoot" disabled>Take 4 photos</button>
+</div>
+</div>
+<div class="demo-result">
+<div class="hint">Your strip comes out here</div>
+<canvas id="stripCanvas" width="400" height="1310"></canvas>
+<a class="btn-light" id="stripDownload" style="display:none" download="ohshoot-strip.png">Save the strip</a>
+<p class="demo-note">Everything happens on your device. No photo is uploaded or stored by us.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="h-vozes" style="border-top: 1px solid #d8d4cc; background: #eae7e2">
+<div style="max-width: 1200px; margin: 0 auto; padding: 96px 32px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b655e">What they say</div>
+<h2 id="h-vozes" style="margin: 14px 0 48px; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(34px, 4vw, 54px); line-height: 1.02; color: #100e0c">Real moments, <span style="font-style: italic; font-weight: 400">real people.</span></h2>
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+<figure style="flex: 1 1 420px; min-width: 0; margin: 0; background: #ffffff; border: 1px solid #d8d4cc; padding: 32px; display: flex; flex-direction: column; gap: 24px">
+<blockquote style="margin: 0; font-size: 17px; line-height: 1.6; color: #1a1714">It was a detail that added so much to our wedding and ended up being the best keepsake our guests took home. Everyone was crazy about taking photos in the photobooth!</blockquote>
+<figcaption style="margin-top: auto; padding-top: 20px; border-top: 1px solid #d8d4cc; font-size: 15px"><strong>Francisca &amp; Rafael</strong><br><span style="color: #6b655e">Wedding · 2026</span></figcaption>
+</figure>
+<figure style="flex: 1 1 420px; min-width: 0; margin: 0; background: #ffffff; border: 1px solid #d8d4cc; padding: 32px; display: flex; flex-direction: column; gap: 24px">
+<blockquote style="margin: 0; font-size: 17px; line-height: 1.6; color: #1a1714">Once again, thank you so much for a great event on Saturday. The whole Embassy loved the photobooth.</blockquote>
+<figcaption style="margin-top: auto; padding-top: 20px; border-top: 1px solid #d8d4cc; font-size: 15px"><strong>Joy Kang</strong><br><span style="color: #6b655e">American Embassy of Portugal</span></figcaption>
+</figure>
+<figure style="flex: 1 1 420px; min-width: 0; margin: 0; background: #ffffff; border: 1px solid #d8d4cc; padding: 32px; display: flex; flex-direction: column; gap: 24px">
+<blockquote style="margin: 0; font-size: 17px; line-height: 1.6; color: #1a1714">We had the oh SHOOT booth at our event for 3 days and it was a huge success. Guests loved the quality of the photos and how easy the interface was. We feel they created a lot of content with our products thanks to the booth too!</blockquote>
+<figcaption style="margin-top: auto; padding-top: 20px; border-top: 1px solid #d8d4cc; font-size: 15px"><strong>Maria</strong><br><span style="color: #6b655e">Levi's · 3-day event</span></figcaption>
+</figure>
+<figure style="flex: 1 1 420px; min-width: 0; margin: 0; background: #ffffff; border: 1px solid #d8d4cc; padding: 32px; display: flex; flex-direction: column; gap: 24px">
+<blockquote style="margin: 0; font-size: 17px; line-height: 1.6; color: #1a1714">At Chefs on Fire, we believe the difference is in the detail. oh SHOOT understood that from the very first minute and brought us a fun way to keep those moments, with the same care for detail we put into everything we do. Now everyone who came to the festival takes a memory home in their hands.</blockquote>
+<figcaption style="margin-top: auto; padding-top: 20px; border-top: 1px solid #d8d4cc; font-size: 15px"><strong>Tiago Pires</strong><br><span style="color: #6b655e">Head of Production Design, LOHAD · Chefs on Fire</span></figcaption>
+</figure>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="h-ig">
+<div style="max-width: 1200px; margin: 0 auto; padding: 96px 32px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 40px">
+<div>
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b655e">Instagram</div>
+<h2 id="h-ig" style="margin: 14px 0 0; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(34px, 4vw, 54px); line-height: 1.02; color: #100e0c">The rest <span style="font-style: italic; font-weight: 400">happens here.</span></h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="https://instagram.com/ohshoot.pt" style="text-decoration: none; border: 1px solid #100e0c; color: #100e0c; padding: 14px 24px; font-weight: 500; border-radius: 2px">Follow @ohshoot.pt</a>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+<img src="../assets/strips.jpg" alt="Guests looking at freshly printed photo strips" style="display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover">
+<img src="../assets/legsbw.jpg" alt="A guest's legs inside the booth, in black and white" style="display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover">
+<img src="../assets/strip2.jpg" alt="Guest holding a photo strip at a party" style="display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover">
+<img src="../assets/stepin.jpg" alt="Booth panel reading Step in, pull the curtain, four frames, yours forever" style="display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover">
+</div>
+</div>
+</section>
+
+<section id="contacto" aria-labelledby="h-contacto" style="background: #100e0c; color: #f3f1ee">
+<div style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-wrap: wrap; gap: 56px">
+<div style="flex: 1 1 360px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #b8b3ab">Get a quote</div>
+<h2 id="h-contacto" style="margin: 14px 0 20px; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(34px, 4vw, 54px); line-height: 1.02">Tell us <span style="font-style: italic; font-weight: 400">what you need.</span></h2>
+<p style="margin: 0 0 32px; max-width: 400px; color: #dad9db">We reply with availability and a tailored quote.</p>
+<div style="display: flex; flex-direction: column; gap: 4px; font-size: 16px">
+<a href="mailto:events@ohshoot.pt" style="color: #f3f1ee; padding: 10px 0">events@ohshoot.pt</a>
+<a href="https://wa.me/351918453745" style="color: #f3f1ee; padding: 10px 0">WhatsApp +351 918 453 745</a>
+</div>
+</div>
+<form data-form="geral" style="flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-wrap: wrap; gap: 12px">
+<legend style="padding: 0; margin-bottom: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #b8b3ab">THE BOOTH IS FOR</legend>
+<label style="flex: 1 1 200px; display: flex; align-items: center; gap: 12px; border: 1px solid #f3f1ee; padding: 16px 18px; min-height: 24px"><input type="radio" name="tipo" value="evento" checked style="width: 18px; height: 18px; accent-color: #f3f1ee"><span>An event</span></label>
+<label style="flex: 1 1 200px; display: flex; align-items: center; gap: 12px; border: 1px solid #5a554f; padding: 16px 18px; min-height: 24px"><input type="radio" name="tipo" value="espaco" style="width: 18px; height: 18px; accent-color: #f3f1ee"><span>My venue</span></label>
+</fieldset>
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+<label style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #dad9db">Name<input type="text" name="nome" autocomplete="name" required style="font: inherit; font-size: 16px; color: #f3f1ee; background: transparent; border: 0; border-bottom: 1px solid #8a847c; padding: 10px 0; min-height: 28px"></label>
+<label style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #dad9db">Email<input type="email" name="email" autocomplete="email" required style="font: inherit; font-size: 16px; color: #f3f1ee; background: transparent; border: 0; border-bottom: 1px solid #8a847c; padding: 10px 0; min-height: 28px"></label>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+<label style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #dad9db">Event date<input type="text" name="data" placeholder="dd/mm/yyyy" style="font: inherit; font-size: 16px; color: #f3f1ee; background: transparent; border: 0; border-bottom: 1px solid #8a847c; padding: 10px 0; min-height: 28px"></label>
+<label style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #dad9db">Venue or city<input type="text" name="local" style="font: inherit; font-size: 16px; color: #f3f1ee; background: transparent; border: 0; border-bottom: 1px solid #8a847c; padding: 10px 0; min-height: 28px"></label>
+</div>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #dad9db">Message<textarea name="mensagem" rows="3" style="font: inherit; font-size: 16px; color: #f3f1ee; background: transparent; border: 0; border-bottom: 1px solid #8a847c; padding: 10px 0; resize: vertical"></textarea></label>
+<button type="submit" style="align-self: flex-start; font: inherit; font-weight: 500; background: #f3f1ee; color: #100e0c; border: 0; padding: 16px 30px; border-radius: 2px; cursor: pointer">Send request</button>
+<p data-msg role="status" style="margin: 0; font-size: 15px; color: #dad9db"></p>
+</form>
+</div>
+</section>
+
+</main>
+
+<footer style="background: #100e0c; color: #dad9db; border-top: 1px solid #3a3530">
+<div style="max-width: 1200px; margin: 0 auto; padding: 56px 32px 32px">
+<div style="display: flex; flex-wrap: wrap; gap: 40px 64px; justify-content: space-between">
+<div style="flex: 1 1 280px; min-width: 0">
+<div style="font-family: 'Denton', Georgia, serif; font-size: 32px; line-height: 1; color: #f3f1ee"><span style="font-style: italic; font-weight: 400">oh</span><span style="font-weight: 900">SHOOT</span></div>
+<p style="margin: 16px 0 0; max-width: 300px; font-size: 15px">Photo booths for events and venues. Greater Lisbon · Portugal.</p>
+</div>
+<nav aria-label="Footer" style="display: flex; flex-direction: column; font-size: 15px">
+<a href="../en/events/" style="color: #f3f1ee; text-decoration: none; padding: 8px 0">Events</a>
+<a href="../en/venues/" style="color: #f3f1ee; text-decoration: none; padding: 8px 0">Venues</a>
+<a href="#onde" style="color: #f3f1ee; text-decoration: none; padding: 8px 0">Find a booth</a>
+<a href="#contacto" style="color: #f3f1ee; text-decoration: none; padding: 8px 0">Get a quote</a>
+</nav>
+<div style="display: flex; flex-direction: column; font-size: 15px">
+<a href="mailto:events@ohshoot.pt" style="color: #f3f1ee; text-decoration: none; padding: 8px 0">events@ohshoot.pt</a>
+<a href="https://wa.me/351918453745" style="color: #f3f1ee; text-decoration: none; padding: 8px 0">WhatsApp +351 918 453 745</a>
+<a href="https://instagram.com/ohshoot.pt" style="color: #f3f1ee; text-decoration: none; padding: 8px 0">@ohshoot.pt</a>
+</div>
+</div>
+<div style="margin-top: 48px; padding-top: 24px; border-top: 1px solid #3a3530; display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #b8b3ab">
+<span>© 2026 oh SHOOT - OHSHOOT.PT</span>
+<span><a href="../privacy.html" style="color: #b8b3ab">Privacy Policy</a> · <a href="../terms.html" style="color: #b8b3ab">Terms and Conditions</a></span>
+<span>MADE IN PORTUGAL</span>
+</div>
+</div>
+</footer>
+
+</div>
+<script>
+(function(){
+  /* ---- BOOTH DEMO: webcam → 4 shots → B/W strip ---- */
+  var video=document.getElementById('camVideo'),camMsg=document.getElementById('camMsg'),
+      camStart=document.getElementById('camStart'),camShoot=document.getElementById('camShoot'),
+      camCd=document.getElementById('camCd'),camFlash=document.getElementById('camFlash'),
+      camRec=document.getElementById('camRec'),
+      canvas=document.getElementById('stripCanvas'),ctx=canvas.getContext('2d'),
+      dl=document.getElementById('stripDownload'),stream=null;
+
+  var TXT={
+    pt:{off:'Câmara desligada',live:'Em direto',denied:'Sem acesso à câmara. Verifica as permissões do navegador.',unsupported:'O teu navegador não suporta câmara.',again:'Repetir',shoot:'Tirar 4 fotos',smile:'Sorri!'},
+    en:{off:'Camera off',live:'Live',denied:'No camera access. Check your browser permissions.',unsupported:'Your browser does not support camera access.',again:'Go again',shoot:'Take 4 shots',smile:'Smile!'}
+  };
+  function T(k){return TXT[document.documentElement.lang==='en'?'en':'pt'][k];}
+
+  camStart.addEventListener('click',function(){
+    if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+      camMsg.innerHTML='<span>'+T('unsupported')+'</span>';return;
+    }
+    navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:1280}},audio:false})
+      .then(function(s){
+        stream=s;video.srcObject=s;
+        camMsg.style.display='none';
+        camShoot.disabled=false;
+        camRec.classList.add('live');
+        camRec.querySelector('span').textContent=T('live');
+      })
+      .catch(function(){camMsg.innerHTML='<span>'+T('denied')+'</span>';});
+  });
+
+  function wait(ms){return new Promise(function(r){setTimeout(r,ms);});}
+
+  function countdown(){
+    return new Promise(function(resolve){
+      var n=3;camCd.style.display='flex';camCd.textContent=n;
+      var iv=setInterval(function(){
+        n--;
+        if(n>0){camCd.textContent=n;}
+        else{
+          clearInterval(iv);camCd.style.display='none';
+          camFlash.classList.add('fire');
+          setTimeout(function(){camFlash.classList.remove('fire');},500);
+          resolve();
+        }
+      },700);
+    });
+  }
+
+  function grab(){
+    var w=video.videoWidth,h=video.videoHeight;
+    var c=document.createElement('canvas');
+    var size=Math.min(w,h);
+    c.width=640;c.height=640;
+    var cc=c.getContext('2d');
+    cc.translate(c.width,0);cc.scale(-1,1); /* mirror like a booth */
+    cc.drawImage(video,(w-size)/2,(h-size)/2,size,size,0,0,c.width,c.height);
+    /* Force true B/W pixel by pixel - canvas filter is ignored by some browsers (e.g. Safari) */
+    var img=cc.getImageData(0,0,c.width,c.height),d=img.data;
+    for(var i=0;i<d.length;i+=4){
+      var g=0.299*d[i]+0.587*d[i+1]+0.114*d[i+2];
+      g=(g-128)*1.12+134; /* gentle contrast + lift */
+      d[i]=d[i+1]=d[i+2]=g<0?0:(g>255?255:g);
+    }
+    cc.putImageData(img,0,0);
+    return c;
+  }
+
+  function drawStrip(frames){
+    var W=canvas.width,pad=24,fw=W-pad*2,gap=18,footer=140;
+    canvas.height=pad+(fw+gap)*4-gap+footer;
+    ctx.fillStyle='#ffffff';ctx.fillRect(0,0,W,canvas.height);
+    frames.forEach(function(f,i){
+      ctx.drawImage(f,pad,pad+i*(fw+gap),fw,fw);
+    });
+    var cy=pad+(fw+gap)*4-gap+62;
+    ctx.fillStyle='#1a1714';ctx.textAlign='center';
+    ctx.font='italic 500 34px Denton, "Playfair Display", Georgia, serif';
+    var ohW=ctx.measureText('oh ').width;
+    ctx.font='900 34px Denton, "Playfair Display", Georgia, serif';
+    var shW=ctx.measureText('SHOOT').width;
+    var startX=W/2-(ohW+shW)/2;
+    ctx.textAlign='left';
+    ctx.font='italic 500 34px Denton, "Playfair Display", Georgia, serif';
+    ctx.fillText('oh ',startX,cy);
+    ctx.font='900 34px Denton, "Playfair Display", Georgia, serif';
+    ctx.fillText('SHOOT',startX+ohW,cy);
+    ctx.font='11px "IBM Plex Mono", monospace';ctx.fillStyle='#8a847c';ctx.textAlign='center';
+    var d=new Date();
+    ctx.fillText('OHSHOOT.PT · '+d.toLocaleDateString(document.documentElement.lang==='en'?'en-GB':'pt-PT'),W/2,cy+34);
+    canvas.style.display='block';
+    dl.href=canvas.toDataURL('image/png');
+    dl.style.display='inline-block';
+  }
+
+  var shooting=false;
+  camShoot.addEventListener('click',async function(){
+    if(shooting||!stream)return;
+    shooting=true;camShoot.disabled=true;
+    canvas.style.display='none';dl.style.display='none';
+    var frames=[];
+    for(var i=0;i<4;i++){
+      await countdown();
+      frames.push(grab());
+      await wait(450);
+    }
+    drawStrip(frames);
+    camShoot.textContent=T('again');
+    camShoot.disabled=false;shooting=false;
+    if(matchMedia('(max-width:920px)').matches){
+      canvas.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+  });
+
+  /* Stop camera when leaving the section (battery/privacy) */
+  var demoSec=document.getElementById('demo');
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden&&stream){stream.getTracks().forEach(function(t){t.stop();});stream=null;
+      camMsg.style.display='flex';camShoot.disabled=true;camRec.classList.remove('live');
+      camRec.querySelector('span').textContent=T('off');camShoot.textContent=T('shoot');
+    }
+  });
+
+
+})();
+document.querySelectorAll('form[data-form]').forEach(function(f){
+  var en=document.documentElement.lang==='en',msg=f.querySelector('[data-msg]');
+  var T=en?{s:'Sending...',ok:'Request sent. We will reply soon.',ko:'Could not send. Write to events@ohshoot.pt or message us on WhatsApp.'}:{s:'A enviar...',ok:'Pedido enviado. Respondemos em breve.',ko:'Não foi possível enviar. Escreve-nos para events@ohshoot.pt ou por WhatsApp.'};
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!f.reportValidity())return;
+    var b=f.querySelector('button[type=submit]');b.disabled=true;msg.textContent=T.s;
+    var d={};new FormData(f).forEach(function(v,k){d[k]=v;});
+    d.idioma=en?'EN':'PT';
+    d._subject='oh SHOOT - novo pedido ('+(d.tipo||f.getAttribute('data-form'))+')';
+    d._template='table';d._captcha='false';
+    fetch('https://formsubmit.co/ajax/events@ohshoot.pt',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)})
+      .then(function(r){return r.json();})
+      .then(function(j){if(!j||!(j.success===true||j.success==='true'))throw 0;msg.textContent=T.ok;f.reset();b.disabled=false;})
+      .catch(function(){msg.textContent=T.ko;b.disabled=false;});
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A photo booth for shops, bars and hotels - oh SHOOT</title>
+<meta name="description" content="A resident photo booth in your venue on a monthly contract. Installation, maintenance and paper are on us.">
+<link rel="canonical" href="https://ohshoot.pt/en/venues/">
+<link rel="alternate" hreflang="pt" href="https://ohshoot.pt/espacos/">
+<link rel="alternate" hreflang="en" href="https://ohshoot.pt/en/venues/">
+<link rel="alternate" hreflang="x-default" href="https://ohshoot.pt/espacos/">
+<meta property="og:title" content="A photo booth for shops, bars and hotels - oh SHOOT">
+<meta property="og:description" content="A resident photo booth in your venue on a monthly contract. Installation, maintenance and paper are on us.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ohshoot.pt/en/venues/">
+<meta property="og:image" content="https://ohshoot.pt/assets/legs.jpg">
+<meta property="og:locale" content="en_GB">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23100e0c'/%3E%3Ccircle cx='32' cy='30' r='14' fill='none' stroke='%23f3f1ee' stroke-width='4'/%3E%3Ccircle cx='32' cy='30' r='5' fill='%23f3f1ee'/%3E%3Crect x='18' y='48' width='28' height='4' fill='%23f3f1ee'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#100e0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Denton';src:url('../../assets/denton-black.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}
+@font-face{font-family:'Denton';src:url('../../assets/denton-italic.woff2') format('woff2');font-weight:400;font-style:italic;font-display:swap}
+:root{--display:'Denton',Georgia,serif;--mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;-webkit-font-smoothing:antialiased}img{max-width:100%}
+a{color:#1a1714}a:hover{color:#000}
+.demo-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:54px;align-items:start}
+.cam-frame{background:#1b1815;border:1px solid #2a2622;border-radius:8px;padding:18px}
+.cam-view{position:relative;aspect-ratio:4/3;background:#0c0b0a;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.cam-view video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);filter:grayscale(1) contrast(1.08)}
+.cam-msg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#b8b3ab}
+.cd{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;font-size:120px;color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.6);z-index:3}
+.localflash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:4}
+.localflash.fire{animation:flash .45s ease-out}
+@keyframes flash{0%{opacity:.95}100%{opacity:0}}@keyframes blink{50%{opacity:.25}}
+.cam-bar{display:flex;align-items:center;justify-content:space-between;margin-top:16px;gap:12px;flex-wrap:wrap}
+.rec{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#b8b3ab;display:flex;align-items:center;gap:8px}
+.rec i{width:8px;height:8px;border-radius:50%;background:#5a544c;display:inline-block}.rec.live i{background:#e0503a;animation:blink 1.2s infinite}
+.btn-light{font:inherit;font-weight:500;background:#f3f1ee;color:#100e0c;border:0;padding:13px 24px;border-radius:2px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-light:disabled{opacity:.4;cursor:default}
+.demo-result{display:flex;flex-direction:column;align-items:center;gap:18px}
+.hint{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#b8b3ab;text-align:center}
+#stripCanvas{width:200px;height:auto;background:#fff;box-shadow:0 30px 60px -22px rgba(0,0,0,.8);transform:rotate(2deg);display:none}
+.demo-note{font-size:14px;color:#b8b3ab;text-align:center;max-width:30ch;margin:0}
+input:focus,select:focus,textarea:focus,a:focus-visible,button:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+@media(max-width:820px){.demo-grid{grid-template-columns:1fr}
+header nav{order:3;width:100%}
+[style*="repeat(4, minmax(0, 1fr))"],[style*="repeat(3, minmax(0, 1fr))"]{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+ul[style*="repeat(2, minmax(0, 1fr))"]{grid-template-columns:1fr !important}
+section>div[style*="padding: 96px 32px"],section>div[style*="padding: 88px 32px"]{padding:64px 20px !important}
+section[style*="padding: 72px 32px 88px"]{padding:40px 20px 56px !important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.localflash.fire,.rec.live i{animation:none}}
+</style>
+</head>
+<body>
+<div style="background: #f3f1ee; color: #1a1714; font-family: 'DM Sans', system-ui, sans-serif; font-size: 17px; line-height: 1.6">
+
+<header style="border-bottom: 1px solid #d8d4cc">
+<div style="max-width: 1200px; margin: 0 auto; padding: 18px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px">
+<a href="../../en/" aria-label="oh SHOOT" style="text-decoration: none; font-family: 'Denton', Georgia, serif; font-size: 28px; line-height: 1; color: #100e0c"><span style="font-style: italic; font-weight: 400">oh</span><span style="font-weight: 900">SHOOT</span></a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 15px">
+<a href="../../en/events/" style="text-decoration: none; padding: 12px 0">Events</a>
+<a href="../../en/venues/" aria-current="page" style="padding: 12px 0; font-weight: 700; text-underline-offset: 6px">Venues</a>
+<a href="../../en/#onde" style="text-decoration: none; padding: 12px 0">Find a booth</a>
+<a href="../../en/#frota" style="text-decoration: none; padding: 12px 0">The booths</a>
+</nav>
+<div style="display: flex; align-items: center; gap: 20px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.08em; display: flex; gap: 10px"><a href="../../espacos/" hreflang="pt" lang="pt" aria-label="Português" style="padding: 12px 2px; text-decoration: none; color: #6b655e">PT</a><a href="../../en/venues/" hreflang="en" lang="en" aria-label="English" aria-current="true" style="padding: 12px 2px; font-weight: 500">EN</a></div>
+<a href="#pedir" style="text-decoration: none; background: #100e0c; color: #f3f1ee; padding: 12px 22px; font-size: 15px; font-weight: 500; border-radius: 2px">Host a booth</a>
+</div>
+</div>
+</header>
+
+<main id="top">
+
+<section style="max-width: 1200px; margin: 0 auto; padding: 72px 32px 88px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
+<div style="flex: 1 1 460px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b655e; margin-bottom: 28px">02 · Venues · By the month</div>
+<h1 style="margin: 0; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(44px, 6vw, 80px); line-height: 0.98; letter-spacing: -0.01em; color: #100e0c">A photo booth <span style="font-style: italic; font-weight: 400">in your venue.</span></h1>
+<p style="margin: 28px 0 0; max-width: 500px; font-size: 19px; color: #3a3530">For shops, bars, restaurants, hotels and shopping centres. Monthly contract. We install, maintain and restock the paper.</p>
+<div style="margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px">
+<a href="#pedir" style="text-decoration: none; background: #100e0c; color: #f3f1ee; padding: 15px 26px; font-weight: 500; border-radius: 2px">Host a booth</a>
+<a href="#modelos" style="text-decoration: none; border: 1px solid #100e0c; color: #100e0c; padding: 14px 26px; font-weight: 500; border-radius: 2px">See the models</a>
+</div>
+</div>
+<div style="flex: 1 1 380px; min-width: 0; max-width: 520px">
+<img src="../../assets/event-07.jpg" alt="oh SHOOT booth installed at the entrance of a venue" style="display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover">
+</div>
+</section>
+
+<section aria-labelledby="h-como" style="border-top: 1px solid #d8d4cc">
+<div style="max-width: 1200px; margin: 0 auto; padding: 88px 32px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b655e">How it works</div>
+<h2 id="h-como" style="margin: 14px 0 48px; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(34px, 4vw, 54px); line-height: 1.02; color: #100e0c">You give us a corner. <span style="font-style: italic; font-weight: 400">We handle the rest.</span></h2>
+<ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 32px">
+<li style="flex: 1 1 220px; min-width: 0; border-top: 1px solid #100e0c; padding-top: 20px"><div style="font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 44px; line-height: 1; color: #100e0c">01</div><strong style="display: block; margin-top: 16px; font-size: 19px">We visit your venue</strong><span style="color: #3a3530">We look at the spot and the foot traffic, then send a proposal.</span></li>
+<li style="flex: 1 1 220px; min-width: 0; border-top: 1px solid #100e0c; padding-top: 20px"><div style="font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 44px; line-height: 1; color: #100e0c">02</div><strong style="display: block; margin-top: 16px; font-size: 19px">We install the booth</strong><span style="color: #3a3530">Within 30 days, with a strip customised for your venue.</span></li>
+<li style="flex: 1 1 220px; min-width: 0; border-top: 1px solid #100e0c; padding-top: 20px"><div style="font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 44px; line-height: 1; color: #100e0c">03</div><strong style="display: block; margin-top: 16px; font-size: 19px">Your customers step in</strong><span style="color: #3a3530">They pay at the booth by card or MB Way. No work for your team.</span></li>
+<li style="flex: 1 1 220px; min-width: 0; border-top: 1px solid #100e0c; padding-top: 20px"><div style="font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 44px; line-height: 1; color: #100e0c">04</div><strong style="display: block; margin-top: 16px; font-size: 19px">We look after it</strong><span style="color: #3a3530">Paper, maintenance and print quality are on us.</span></li>
+</ol>
+</div>
+</section>
+
+<section id="modelos" aria-labelledby="h-modelos" style="background: #eae7e2; border-top: 1px solid #d8d4cc">
+<div style="max-width: 1200px; margin: 0 auto; padding: 88px 32px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b655e">Models</div>
+<h2 id="h-modelos" style="margin: 14px 0 48px; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(34px, 4vw, 54px); line-height: 1.02; color: #100e0c">Who pays for <span style="font-style: italic; font-weight: 400">the session?</span></h2>
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+
+<article style="flex: 1 1 420px; min-width: 0; background: #ffffff; border: 1px solid #d8d4cc; padding: 40px; display: flex; flex-direction: column; gap: 18px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #6b655e">MODEL A</div>
+<h3 style="margin: 0; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 40px; line-height: 1.02; color: #100e0c">The public pays</h3>
+<p style="margin: 0; font-size: 18px">A fixed monthly fee. Each customer pays for their session.</p>
+<ul style="margin: 8px 0 0; padding: 0; list-style: none; border-top: 1px solid #d8d4cc">
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc">Shops, bars, restaurants, hotels, leisure venues</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc">Everything included in the monthly fee</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc">Partner option: the venue earns a share of every session</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc">Monthly fee: on request</li>
+</ul>
+</article>
+
+<article style="flex: 1 1 420px; min-width: 0; background: #100e0c; color: #f3f1ee; border: 1px solid #100e0c; padding: 40px; display: flex; flex-direction: column; gap: 18px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #b8b3ab">MODEL B</div>
+<h3 style="margin: 0; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 40px; line-height: 1.02">The brand treats</h3>
+<p style="margin: 0; font-size: 18px">Free sessions for your customers. The booth wears your brand.</p>
+<ul style="margin: 8px 0 0; padding: 0; list-style: none; border-top: 1px solid #3a3530">
+<li style="padding: 14px 0; border-bottom: 1px solid #3a3530">Flagships, pop-ups, lobbies, brand spaces</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #3a3530">Custom frame and exterior</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #3a3530">Monthly session bundle included</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #3a3530">Monthly fee: on request</li>
+</ul>
+</article>
+
+</div>
+<p style="margin: 24px 0 0; font-size: 15px; color: #3a3530">Rather own your booth? We also build to order. <a href="#pedir">Talk to us.</a></p>
+</div>
+</section>
+
+<section aria-labelledby="h-lados">
+<div style="max-width: 1200px; margin: 0 auto; padding: 88px 32px; display: flex; flex-wrap: wrap; gap: 56px">
+<div style="flex: 1 1 320px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b655e">The deal</div>
+<h2 id="h-lados" style="margin: 14px 0 20px; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(34px, 4vw, 54px); line-height: 1.02; color: #100e0c">Simple. <span style="font-style: italic; font-weight: 400">In writing.</span></h2>
+<img src="../../assets/delivery.jpg" alt="Hand taking the photo strip from the booth's delivery slot" style="display: block; margin-top: 28px; width: 100%; max-width: 380px; aspect-ratio: 4 / 3; object-fit: cover">
+</div>
+<div style="flex: 2 1 480px; min-width: 0; display: flex; flex-wrap: wrap; gap: 32px 48px">
+<div style="flex: 1 1 220px; min-width: 0">
+<h3 style="margin: 0 0 4px; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.14em; color: #6b655e">OUR SIDE</h3>
+<ul style="margin: 12px 0 0; padding: 0; list-style: none; border-top: 1px solid #100e0c">
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc">The booth and installation</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc">Maintenance and support</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc">Paper and consumables</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc">Payment system</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc">Custom strip</li>
+</ul>
+</div>
+<div style="flex: 1 1 220px; min-width: 0">
+<h3 style="margin: 0 0 4px; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.14em; color: #6b655e">YOUR SIDE</h3>
+<ul style="margin: 12px 0 0; padding: 0; list-style: none; border-top: 1px solid #100e0c">
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc">2 × 2 m of floor</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc">A power socket</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc">Customers walking by</li>
+</ul>
+</div>
+<dl style="flex: 1 1 100%; margin: 0; display: flex; flex-wrap: wrap; gap: 24px 48px; padding-top: 8px">
+<div style="flex: 1 1 180px; min-width: 0"><dt style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #6b655e">DURATION</dt><dd style="margin: 8px 0 0; font-size: 19px">3-month minimum</dd></div>
+<div style="flex: 1 1 180px; min-width: 0"><dt style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #6b655e">INSTALLATION</dt><dd style="margin: 8px 0 0; font-size: 19px">Within 30 days</dd></div>
+<div style="flex: 1 1 180px; min-width: 0"><dt style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #6b655e">AREA</dt><dd style="margin: 8px 0 0; font-size: 19px">Exclusivity in your area</dd></div>
+</dl>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="h-quarta" style="background: #ffffff; border-top: 1px solid #d8d4cc; border-bottom: 1px solid #d8d4cc">
+<div style="max-width: 1200px; margin: 0 auto; padding: 64px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px 56px">
+<img src="../../assets/disco.jpg" alt="Mirror ball and silhouettes on a dance floor" style="display: block; width: 200px; aspect-ratio: 3 / 4; object-fit: cover">
+<div style="flex: 1 1 360px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #6b655e; display: flex; align-items: center; gap: 10px"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; border: 1px solid #100e0c; box-sizing: border-box"></span>RESIDENT BOOTHS</div>
+<h2 id="h-quarta" style="margin: 12px 0 0; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(28px, 3vw, 40px); line-height: 1.05; color: #100e0c">Booths 01 and 04 are getting a fixed address. We reveal where later this year.<span style="font-style: italic; font-weight: 400">The next one could be yours.</span></h2>
+</div>
+<a href="#pedir" style="text-decoration: none; border: 1px solid #100e0c; color: #100e0c; padding: 14px 26px; font-weight: 500; border-radius: 2px">I want the next one</a>
+</div>
+</section>
+
+<section id="pedir" aria-labelledby="h-pedir" style="background: #100e0c; color: #f3f1ee">
+<div style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-wrap: wrap; gap: 56px">
+<div style="flex: 1 1 360px; min-width: 0">
+<h2 id="h-pedir" style="margin: 0 0 20px; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(36px, 4.4vw, 60px); line-height: 1.02">Tell us <span style="font-style: italic; font-weight: 400">about your venue.</span></h2>
+<p style="margin: 0 0 24px; max-width: 400px; color: #dad9db">We book a visit and send a proposal.</p>
+<a href="https://wa.me/351918453745" style="color: #f3f1ee; padding: 10px 0; display: inline-block">WhatsApp +351 918 453 745</a>
+</div>
+<form data-form="espaco" style="flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+<label style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #dad9db">Name<input type="text" name="nome" autocomplete="name" required style="font: inherit; font-size: 16px; color: #f3f1ee; background: transparent; border: 0; border-bottom: 1px solid #8a847c; padding: 10px 0; min-height: 28px"></label>
+<label style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #dad9db">Email<input type="email" name="email" autocomplete="email" required style="font: inherit; font-size: 16px; color: #f3f1ee; background: transparent; border: 0; border-bottom: 1px solid #8a847c; padding: 10px 0; min-height: 28px"></label>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+<label style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #dad9db">Venue name<input type="text" name="espaco" style="font: inherit; font-size: 16px; color: #f3f1ee; background: transparent; border: 0; border-bottom: 1px solid #8a847c; padding: 10px 0; min-height: 28px"></label>
+<label style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #dad9db">Address or city<input type="text" name="local" style="font: inherit; font-size: 16px; color: #f3f1ee; background: transparent; border: 0; border-bottom: 1px solid #8a847c; padding: 10px 0; min-height: 28px"></label>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+<label style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #dad9db">Type of venue<select name="tipo" style="font: inherit; font-size: 16px; color: #f3f1ee; background: #100e0c; border: 0; border-bottom: 1px solid #8a847c; padding: 10px 0; min-height: 48px"><option>Shop</option><option>Bar or restaurant</option><option>Hotel</option><option>Shopping centre</option><option>Other</option></select></label>
+<label style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #dad9db">For how long<select name="duracao" style="font: inherit; font-size: 16px; color: #f3f1ee; background: #100e0c; border: 0; border-bottom: 1px solid #8a847c; padding: 10px 0; min-height: 48px"><option>Not sure yet</option><option>1 to 3 months</option><option>6 months</option><option>12 months or more</option></select></label>
+</div>
+<button type="submit" style="align-self: flex-start; font: inherit; font-weight: 500; background: #f3f1ee; color: #100e0c; border: 0; padding: 16px 30px; border-radius: 2px; cursor: pointer">Get a quote for my venue</button>
+<p data-msg role="status" style="margin: 0; font-size: 15px; color: #dad9db"></p>
+</form>
+</div>
+<div style="max-width: 1200px; margin: 0 auto; padding: 24px 32px 32px; border-top: 1px solid #3a3530; display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #b8b3ab">
+<span>© 2026 oh SHOOT - OHSHOOT.PT</span>
+<span><a href="../../en/events/" style="color: #b8b3ab">A booth for your event</a> · <a href="https://instagram.com/ohshoot.pt" style="color: #b8b3ab">@ohshoot.pt</a></span>
+<span>MADE IN PORTUGAL</span>
+</div>
+</section>
+
+</main>
+</div>
+<script>
+document.querySelectorAll('form[data-form]').forEach(function(f){
+  var en=document.documentElement.lang==='en',msg=f.querySelector('[data-msg]');
+  var T=en?{s:'Sending...',ok:'Request sent. We will reply soon.',ko:'Could not send. Write to events@ohshoot.pt or message us on WhatsApp.'}:{s:'A enviar...',ok:'Pedido enviado. Respondemos em breve.',ko:'Não foi possível enviar. Escreve-nos para events@ohshoot.pt ou por WhatsApp.'};
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!f.reportValidity())return;
+    var b=f.querySelector('button[type=submit]');b.disabled=true;msg.textContent=T.s;
+    var d={};new FormData(f).forEach(function(v,k){d[k]=v;});
+    d.idioma=en?'EN':'PT';
+    d._subject='oh SHOOT - novo pedido ('+(d.tipo||f.getAttribute('data-form'))+')';
+    d._template='table';d._captcha='false';
+    fetch('https://formsubmit.co/ajax/events@ohshoot.pt',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)})
+      .then(function(r){return r.json();})
+      .then(function(j){if(!j||!(j.success===true||j.success==='true'))throw 0;msg.textContent=T.ok;f.reset();b.disabled=false;})
+      .catch(function(){msg.textContent=T.ko;b.disabled=false;});
+  });
+});
+</script>
+</body>
+</html>

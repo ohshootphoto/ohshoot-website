@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photo booth hire for events in Lisbon - oh SHOOT</title>
+<meta name="description" content="Photo booth hire for weddings, brands, companies and festivals in Greater Lisbon. Attendant, unlimited prints and a custom strip.">
+<link rel="canonical" href="https://ohshoot.pt/en/events/">
+<link rel="alternate" hreflang="pt" href="https://ohshoot.pt/eventos/">
+<link rel="alternate" hreflang="en" href="https://ohshoot.pt/en/events/">
+<link rel="alternate" hreflang="x-default" href="https://ohshoot.pt/eventos/">
+<meta property="og:title" content="Photo booth hire for events in Lisbon - oh SHOOT">
+<meta property="og:description" content="Photo booth hire for weddings, brands, companies and festivals in Greater Lisbon. Attendant, unlimited prints and a custom strip.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ohshoot.pt/en/events/">
+<meta property="og:image" content="https://ohshoot.pt/assets/legs.jpg">
+<meta property="og:locale" content="en_GB">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23100e0c'/%3E%3Ccircle cx='32' cy='30' r='14' fill='none' stroke='%23f3f1ee' stroke-width='4'/%3E%3Ccircle cx='32' cy='30' r='5' fill='%23f3f1ee'/%3E%3Crect x='18' y='48' width='28' height='4' fill='%23f3f1ee'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#100e0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Denton';src:url('../../assets/denton-black.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}
+@font-face{font-family:'Denton';src:url('../../assets/denton-italic.woff2') format('woff2');font-weight:400;font-style:italic;font-display:swap}
+:root{--display:'Denton',Georgia,serif;--mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;-webkit-font-smoothing:antialiased}img{max-width:100%}
+a{color:#1a1714}a:hover{color:#000}
+.demo-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:54px;align-items:start}
+.cam-frame{background:#1b1815;border:1px solid #2a2622;border-radius:8px;padding:18px}
+.cam-view{position:relative;aspect-ratio:4/3;background:#0c0b0a;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.cam-view video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);filter:grayscale(1) contrast(1.08)}
+.cam-msg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#b8b3ab}
+.cd{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;font-size:120px;color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.6);z-index:3}
+.localflash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:4}
+.localflash.fire{animation:flash .45s ease-out}
+@keyframes flash{0%{opacity:.95}100%{opacity:0}}@keyframes blink{50%{opacity:.25}}
+.cam-bar{display:flex;align-items:center;justify-content:space-between;margin-top:16px;gap:12px;flex-wrap:wrap}
+.rec{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#b8b3ab;display:flex;align-items:center;gap:8px}
+.rec i{width:8px;height:8px;border-radius:50%;background:#5a544c;display:inline-block}.rec.live i{background:#e0503a;animation:blink 1.2s infinite}
+.btn-light{font:inherit;font-weight:500;background:#f3f1ee;color:#100e0c;border:0;padding:13px 24px;border-radius:2px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-light:disabled{opacity:.4;cursor:default}
+.demo-result{display:flex;flex-direction:column;align-items:center;gap:18px}
+.hint{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#b8b3ab;text-align:center}
+#stripCanvas{width:200px;height:auto;background:#fff;box-shadow:0 30px 60px -22px rgba(0,0,0,.8);transform:rotate(2deg);display:none}
+.demo-note{font-size:14px;color:#b8b3ab;text-align:center;max-width:30ch;margin:0}
+input:focus,select:focus,textarea:focus,a:focus-visible,button:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+@media(max-width:820px){.demo-grid{grid-template-columns:1fr}
+header nav{order:3;width:100%}
+[style*="repeat(4, minmax(0, 1fr))"],[style*="repeat(3, minmax(0, 1fr))"]{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+ul[style*="repeat(2, minmax(0, 1fr))"]{grid-template-columns:1fr !important}
+section>div[style*="padding: 96px 32px"],section>div[style*="padding: 88px 32px"]{padding:64px 20px !important}
+section[style*="padding: 72px 32px 88px"]{padding:40px 20px 56px !important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.localflash.fire,.rec.live i{animation:none}}
+</style>
+</head>
+<body>
+<div style="background: #f3f1ee; color: #1a1714; font-family: 'DM Sans', system-ui, sans-serif; font-size: 17px; line-height: 1.6">
+
+<header style="border-bottom: 1px solid #d8d4cc">
+<div style="max-width: 1200px; margin: 0 auto; padding: 18px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px">
+<a href="../../en/" aria-label="oh SHOOT" style="text-decoration: none; font-family: 'Denton', Georgia, serif; font-size: 28px; line-height: 1; color: #100e0c"><span style="font-style: italic; font-weight: 400">oh</span><span style="font-weight: 900">SHOOT</span></a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 15px">
+<a href="../../en/events/" aria-current="page" style="padding: 12px 0; font-weight: 700; text-underline-offset: 6px">Events</a>
+<a href="../../en/venues/" style="text-decoration: none; padding: 12px 0">Venues</a>
+<a href="../../en/#onde" style="text-decoration: none; padding: 12px 0">Find a booth</a>
+<a href="../../en/#frota" style="text-decoration: none; padding: 12px 0">The booths</a>
+</nav>
+<div style="display: flex; align-items: center; gap: 20px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.08em; display: flex; gap: 10px"><a href="../../eventos/" hreflang="pt" lang="pt" aria-label="Português" style="padding: 12px 2px; text-decoration: none; color: #6b655e">PT</a><a href="../../en/events/" hreflang="en" lang="en" aria-label="English" aria-current="true" style="padding: 12px 2px; font-weight: 500">EN</a></div>
+<a href="#pedir" style="text-decoration: none; background: #100e0c; color: #f3f1ee; padding: 12px 22px; font-size: 15px; font-weight: 500; border-radius: 2px">Check availability</a>
+</div>
+</div>
+</header>
+
+<main id="top">
+
+<section style="max-width: 1200px; margin: 0 auto; padding: 72px 32px 88px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
+<div style="flex: 1 1 460px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b655e; margin-bottom: 28px">01 · Events · By the hour or day</div>
+<h1 style="margin: 0; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(44px, 6vw, 80px); line-height: 0.98; letter-spacing: -0.01em; color: #100e0c">The photo moment <span style="font-style: italic; font-weight: 400">every event</span> deserves.</h1>
+<p style="margin: 28px 0 0; max-width: 500px; font-size: 19px; color: #3a3530">Photo booth hire for weddings, brands, companies and festivals. Greater Lisbon included, rest of the country on request.</p>
+<div style="margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px">
+<a href="#pedir" style="text-decoration: none; background: #100e0c; color: #f3f1ee; padding: 15px 26px; font-weight: 500; border-radius: 2px">Check availability</a>
+<a href="#formatos" style="text-decoration: none; border: 1px solid #100e0c; color: #100e0c; padding: 14px 26px; font-weight: 500; border-radius: 2px">See both formats</a>
+</div>
+</div>
+<div style="flex: 1 1 380px; min-width: 0; max-width: 520px">
+<img src="../../assets/crowd.jpg" alt="Party seen from above, with guests next to the oh SHOOT booth" style="display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover">
+</div>
+</section>
+
+<section id="formatos" aria-labelledby="h-formatos" style="border-top: 1px solid #d8d4cc">
+<div style="max-width: 1200px; margin: 0 auto; padding: 88px 32px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b655e">Two formats</div>
+<h2 id="h-formatos" style="margin: 14px 0 48px; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(34px, 4vw, 54px); line-height: 1.02; color: #100e0c">Who pays for <span style="font-style: italic; font-weight: 400">the photos?</span></h2>
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+
+<article style="flex: 1 1 420px; min-width: 0; background: #ffffff; border: 1px solid #d8d4cc; padding: 40px; display: flex; flex-direction: column; gap: 18px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #6b655e">FORMAT A</div>
+<h3 style="margin: 0; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 40px; line-height: 1.02; color: #100e0c">Hosted sessions</h3>
+<p style="margin: 0; font-size: 18px">The host treats everyone. Guests just step in.</p>
+<ul style="margin: 8px 0 0; padding: 0; list-style: none; border-top: 1px solid #d8d4cc">
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc">Weddings, private parties, corporate events, brand activations</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc">Unlimited prints during the booked hours</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc">Fixed price by duration, no surprises</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #d8d4cc">Custom strip with your names, date or brand</li>
+</ul>
+</article>
+
+<article style="flex: 1 1 420px; min-width: 0; background: #100e0c; color: #f3f1ee; border: 1px solid #100e0c; padding: 40px; display: flex; flex-direction: column; gap: 18px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #b8b3ab">FORMAT B</div>
+<h3 style="margin: 0; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 40px; line-height: 1.02">Paid sessions</h3>
+<p style="margin: 0; font-size: 18px">Each person pays for their own strip, right at the booth.</p>
+<ul style="margin: 8px 0 0; padding: 0; list-style: none; border-top: 1px solid #3a3530">
+<li style="padding: 14px 0; border-bottom: 1px solid #3a3530">Festivals, markets, fairs and events open to the public</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #3a3530">Card or MB Way payment, no cash</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #3a3530">Lower fixed cost for the organiser</li>
+<li style="padding: 14px 0; border-bottom: 1px solid #3a3530">Made for several days in a row</li>
+</ul>
+</article>
+
+</div>
+</div>
+</section>
+
+<section aria-labelledby="h-pacotes" style="background: #eae7e2; border-top: 1px solid #d8d4cc">
+<div style="max-width: 1200px; margin: 0 auto; padding: 88px 32px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b655e">Packages · Hosted sessions</div>
+<h2 id="h-pacotes" style="margin: 14px 0 48px; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(34px, 4vw, 54px); line-height: 1.02; color: #100e0c">Three durations. <span style="font-style: italic; font-weight: 400">Everything included.</span></h2>
+<div style="display: flex; flex-wrap: wrap; gap: 16px">
+<div style="flex: 1 1 280px; min-width: 0; background: #ffffff; border: 1px solid #d8d4cc; padding: 32px; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 34px; line-height: 1; color: #100e0c">Essencial</h3>
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; color: #6b655e">UP TO 3 HOURS</div>
+<p style="margin: 10px 0 0">For the cocktail hour or after dinner.</p>
+</div>
+<div style="flex: 1 1 280px; min-width: 0; background: #ffffff; border: 2px solid #100e0c; padding: 31px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px"><h3 style="margin: 0; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 34px; line-height: 1; color: #100e0c">Festa</h3><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; background: #100e0c; color: #f3f1ee; padding: 4px 8px">MOST POPULAR</span></div>
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; color: #6b655e">UP TO 5 HOURS</div>
+<p style="margin: 10px 0 0">Opens at the cocktail hour and stays for the party.</p>
+</div>
+<div style="flex: 1 1 280px; min-width: 0; background: #ffffff; border: 1px solid #d8d4cc; padding: 32px; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: 34px; line-height: 1; color: #100e0c">Celebração</h3>
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; color: #6b655e">UP TO 7 HOURS</div>
+<p style="margin: 10px 0 0">From the first toast to the last song.</p>
+</div>
+</div>
+<div style="margin-top: 16px; background: #ffffff; border: 1px solid #d8d4cc; padding: 28px 32px; display: flex; flex-wrap: wrap; gap: 16px 48px; align-items: center; justify-content: space-between">
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px 32px; font-size: 16px">
+<li>Attendant</li><li>Unlimited prints</li><li>Two strips per session</li><li>Custom strip</li><li>Setup and pack-down</li>
+</ul>
+<a href="#pedir" style="font-weight: 500; padding: 10px 0">Get prices for my date</a>
+</div>
+<p style="margin: 24px 0 0; font-size: 15px; color: #3a3530">Festival, fair or several days in a row? There's a dedicated rate. <a href="#pedir">Talk to us.</a></p>
+</div>
+</section>
+
+<section aria-labelledby="h-para">
+<div style="max-width: 1200px; margin: 0 auto; padding: 88px 32px; display: flex; flex-wrap: wrap; gap: 56px">
+<div style="flex: 1 1 320px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b655e">Made for</div>
+<h2 id="h-para" style="margin: 14px 0 20px; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(34px, 4vw, 54px); line-height: 1.02; color: #100e0c">Every <span style="font-style: italic; font-weight: 400">occasion.</span></h2>
+<p style="margin: 0; max-width: 380px">Booth 02 does private events. Booth 03 lives at festivals.</p>
+</div>
+<ul style="flex: 2 1 480px; min-width: 0; margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; border-top: 1px solid #100e0c">
+<li style="padding: 22px 0; border-bottom: 1px solid #d8d4cc"><strong style="display: block; font-size: 19px">Weddings</strong><span style="color: #3a3530">From intimate ceremonies to big parties.</span></li>
+<li style="padding: 22px 0; border-bottom: 1px solid #d8d4cc"><strong style="display: block; font-size: 19px">Brand activations</strong><span style="color: #3a3530">Your campaign on a physical print.</span></li>
+<li style="padding: 22px 0; border-bottom: 1px solid #d8d4cc"><strong style="display: block; font-size: 19px">Festivals</strong><span style="color: #3a3530">The booth the crowd remembers.</span></li>
+<li style="padding: 22px 0; border-bottom: 1px solid #d8d4cc"><strong style="display: block; font-size: 19px">Corporate events</strong><span style="color: #3a3530">Team moments that last.</span></li>
+<li style="padding: 22px 0; border-bottom: 1px solid #d8d4cc"><strong style="display: block; font-size: 19px">Birthdays</strong><span style="color: #3a3530">Everyone deserves a strip at the party.</span></li>
+<li style="padding: 22px 0; border-bottom: 1px solid #d8d4cc"><strong style="display: block; font-size: 19px">Private parties</strong><span style="color: #3a3530">No occasion is too small.</span></li>
+</ul>
+</div>
+</section>
+
+<section aria-label="Gallery" style="max-width: 1200px; margin: 0 auto; padding: 0 32px 88px">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+<img src="../../assets/strips.jpg" alt="Guests looking at freshly printed photo strips" style="display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover">
+<img src="../../assets/party.jpg" alt="Guests at a party, one of them holding up a photo strip" style="display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover">
+<img src="../../assets/levis.jpg" alt="oh SHOOT booth at a brand activation, with guests in front" style="display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover">
+<img src="../../assets/kiss.jpg" alt="Guests next to the booth at a party, in black and white" style="display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover">
+<img src="../../assets/couple.jpg" alt="Two guests leaning on the booth, in black and white" style="display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover">
+<img src="../../assets/strip2.jpg" alt="Guest holding a photo strip at a party" style="display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover">
+</div>
+</section>
+
+<section aria-labelledby="h-vozes" style="background: #eae7e2; border-top: 1px solid #d8d4cc">
+<div style="max-width: 1200px; margin: 0 auto; padding: 88px 32px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b655e">What they say</div>
+<h2 id="h-vozes" style="margin: 14px 0 48px; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(34px, 4vw, 54px); line-height: 1.02; color: #100e0c">Real moments, <span style="font-style: italic; font-weight: 400">real people.</span></h2>
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+<figure style="flex: 1 1 420px; min-width: 0; margin: 0; background: #ffffff; border: 1px solid #d8d4cc; padding: 32px; display: flex; flex-direction: column; gap: 24px">
+<blockquote style="margin: 0; font-size: 17px; line-height: 1.6; color: #1a1714">It was a detail that added so much to our wedding and ended up being the best keepsake our guests took home. Everyone was crazy about taking photos in the photobooth!</blockquote>
+<figcaption style="margin-top: auto; padding-top: 20px; border-top: 1px solid #d8d4cc; font-size: 15px"><strong>Francisca &amp; Rafael</strong><br><span style="color: #6b655e">Wedding · 2026</span></figcaption>
+</figure>
+<figure style="flex: 1 1 420px; min-width: 0; margin: 0; background: #ffffff; border: 1px solid #d8d4cc; padding: 32px; display: flex; flex-direction: column; gap: 24px">
+<blockquote style="margin: 0; font-size: 17px; line-height: 1.6; color: #1a1714">Once again, thank you so much for a great event on Saturday. The whole Embassy loved the photobooth.</blockquote>
+<figcaption style="margin-top: auto; padding-top: 20px; border-top: 1px solid #d8d4cc; font-size: 15px"><strong>Joy Kang</strong><br><span style="color: #6b655e">American Embassy of Portugal</span></figcaption>
+</figure>
+<figure style="flex: 1 1 420px; min-width: 0; margin: 0; background: #ffffff; border: 1px solid #d8d4cc; padding: 32px; display: flex; flex-direction: column; gap: 24px">
+<blockquote style="margin: 0; font-size: 17px; line-height: 1.6; color: #1a1714">We had the oh SHOOT booth at our event for 3 days and it was a huge success. Guests loved the quality of the photos and how easy the interface was. We feel they created a lot of content with our products thanks to the booth too!</blockquote>
+<figcaption style="margin-top: auto; padding-top: 20px; border-top: 1px solid #d8d4cc; font-size: 15px"><strong>Maria</strong><br><span style="color: #6b655e">Levi's · 3-day event</span></figcaption>
+</figure>
+<figure style="flex: 1 1 420px; min-width: 0; margin: 0; background: #ffffff; border: 1px solid #d8d4cc; padding: 32px; display: flex; flex-direction: column; gap: 24px">
+<blockquote style="margin: 0; font-size: 17px; line-height: 1.6; color: #1a1714">At Chefs on Fire, we believe the difference is in the detail. oh SHOOT understood that from the very first minute and brought us a fun way to keep those moments, with the same care for detail we put into everything we do. Now everyone who came to the festival takes a memory home in their hands.</blockquote>
+<figcaption style="margin-top: auto; padding-top: 20px; border-top: 1px solid #d8d4cc; font-size: 15px"><strong>Tiago Pires</strong><br><span style="color: #6b655e">Head of Production Design, LOHAD · Chefs on Fire</span></figcaption>
+</figure>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="h-saber" style="border-top: 1px solid #d8d4cc">
+<div style="max-width: 1200px; margin: 0 auto; padding: 88px 32px">
+<h2 id="h-saber" style="margin: 0 0 40px; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.02; color: #100e0c">Before you book</h2>
+<dl style="margin: 0; display: flex; flex-wrap: wrap; gap: 32px 48px">
+<div style="flex: 1 1 220px; min-width: 0"><dt style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #6b655e">SPACE NEEDED</dt><dd style="margin: 8px 0 0; font-size: 19px">2 × 2 m and a power socket</dd></div>
+<div style="flex: 1 1 220px; min-width: 0"><dt style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #6b655e">BOOKING</dt><dd style="margin: 8px 0 0; font-size: 19px">A 50% deposit confirms your date</dd></div>
+<div style="flex: 1 1 220px; min-width: 0"><dt style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #6b655e">AREA</dt><dd style="margin: 8px 0 0; font-size: 19px">Greater Lisbon included</dd></div>
+<div style="flex: 1 1 220px; min-width: 0"><dt style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #6b655e">PHOTOS</dt><dd style="margin: 8px 0 0; font-size: 19px">Four poses, two printed strips</dd></div>
+</dl>
+</div>
+</section>
+
+<section id="pedir" aria-labelledby="h-pedir" style="background: #100e0c; color: #f3f1ee">
+<div style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-wrap: wrap; gap: 32px 64px; align-items: center; justify-content: space-between">
+<h2 id="h-pedir" style="flex: 1 1 480px; min-width: 0; margin: 0; font-family: 'Denton', Georgia, serif; font-weight: 900; font-size: clamp(36px, 4.4vw, 60px); line-height: 1.02">Your event <span style="font-style: italic; font-weight: 400">deserves it.</span></h2>
+<div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+<a href="../../en/#contacto" style="text-decoration: none; background: #f3f1ee; color: #100e0c; padding: 16px 30px; font-weight: 500; border-radius: 2px">Get a quote for an event</a>
+<a href="https://wa.me/351918453745" style="color: #f3f1ee; padding: 10px 0">or WhatsApp +351 918 453 745</a>
+</div>
+</div>
+<div style="max-width: 1200px; margin: 0 auto; padding: 24px 32px 32px; border-top: 1px solid #3a3530; display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #b8b3ab">
+<span>© 2026 oh SHOOT - OHSHOOT.PT</span>
+<span><a href="../../en/venues/" style="color: #b8b3ab">A booth for your venue</a> · <a href="https://instagram.com/ohshoot.pt" style="color: #b8b3ab">@ohshoot.pt</a></span>
+<span>MADE IN PORTUGAL</span>
+</div>
+</section>
+
+</main>
+</div>
+<script>
+document.querySelectorAll('form[data-form]').forEach(function(f){
+  var en=document.documentElement.lang==='en',msg=f.querySelector('[data-msg]');
+  var T=en?{s:'Sending...',ok:'Request sent. We will reply soon.',ko:'Could not send. Write to events@ohshoot.pt or message us on WhatsApp.'}:{s:'A enviar...',ok:'Pedido enviado. Respondemos em breve.',ko:'Não foi possível enviar. Escreve-nos para events@ohshoot.pt ou por WhatsApp.'};
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!f.reportValidity())return;
+    var b=f.querySelector('button[type=submit]');b.disabled=true;msg.textContent=T.s;
+    var d={};new FormData(f).forEach(function(v,k){d[k]=v;});
+    d.idioma=en?'EN':'PT';
+    d._subject='oh SHOOT - novo pedido ('+(d.tipo||f.getAttribute('data-form'))+')';
+    d._template='table';d._captcha='false';
+    fetch('https://formsubmit.co/ajax/events@ohshoot.pt',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)})
+      .then(function(r){return r.json();})
+      .then(function(j){if(!j||!(j.success===true||j.success==='true'))throw 0;msg.textContent=T.ok;f.reset();b.disabled=false;})
+      .catch(function(){msg.textContent=T.ko;b.disabled=false;});
+  });
+});
+</script>
+</body>
+</html>
